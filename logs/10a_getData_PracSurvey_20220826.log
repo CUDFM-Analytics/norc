@@ -1,0 +1,637 @@
+459  /*
+460  PROGRAM:
+461  PURPOSE:         NORC upload
+462  PROGRAMMER:      K Wiggins
+463  DATE:            08/25/2022
+464  PROCESS:         Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
+465  NOTES:           These are no longer in file but were in January:
+466                       - Use split_id_verify
+467                       - Use dupdelete remove 1's
+468                   Check:
+469                  - no keep / etc columns - all look complete - so kept all.
+470                  - Sent duplicate practice_id's to Sabrina Lor - practice_id 35, 141 this time
+471                   Final result for upload should have 74 columns and be in order acc to
+471! &template_fields;
+472  -------------------------------------------------------------------------------------------------
+472! ----
+473  CHANGE LOG
+474     Date         By      Purpose
+475  1. 01/15/22     KW      Copied from Dionisia's original to not mess with it
+476  2. 08/25/22     KW      Adapted from last iteration survey only, NORC
+477  3. 08/26/22     KW      Removed practice ID's 35, 141 until resolved: Need to get this file in
+477! first for other files' practice_ids
+478
+479  LAST RAN: 08/25/2022
+480  */
+481
+482  * Set global variables and function calls;
+483  * ROOT FOLDER  ---------------------------------------;
+484  %let root = S:/FM/FM/Data_Management_Team;
+485  * INCLUDE --------------------------------------------;
+486  %include "&root/norc/code_folder/00_paths_lets.sas";
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/background
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/background
+SYMBOLGEN:  Macro variable SURVTEMPLATE resolves to
+            S:/FM/FM/Data_Management_Team/norc/background/survey_template_order.xlsx
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable ONEDRIVE resolves to C:/Users/wigginki/OneDrive - The University of
+            Colorado Denver/Documents/projects
+NOTE: Format PCTFMT is already on the library WORK.FORMATS.
+NOTE: Format PCTFMT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+NOTE: Writing HTML Body file: sashtml1.htm
+NOTE: Overwriting existing template/link: Base.Freq.OneWayList
+NOTE: TABLE 'Base.Freq.OneWayList' has been saved to: SASUSER.TEMPLAT
+NOTE: PROCEDURE TEMPLATE used (Total process time):
+      real time           1.23 seconds
+      cpu time            0.98 seconds
+
+
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220826
+20220826
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/results
+NOTE: Libref NORC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: S:\FM\FM\Data_Management_Team\norc\results
+558           *has paths and all let statements for project;
+559
+560  proc import
+561          file = "&survey."
+SYMBOLGEN:  Macro variable SURVEY resolves to S:/FM/FM/Data_Management_Team/raw
+            data/FASTPracticeSurvey_raw_08222022.csv
+562          out = survey0
+563          dbms = csv replace;
+564  run;
+
+dqstring="Dr. lu Family Medicine, PLLC"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="SIM learning, RMHP learning , practice transformation team"
+fmt=
+dqstring="Northeast Colorado Family Medicine Associates, P.C."
+fmt=
+dqstring="Southern Colorado Medicine"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Midvalley Family Practice"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Zero Suicide"
+fmt=
+dqstring="Conifer Medical Center"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Trey Medical Enterprises, Inc"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="It Matters"
+fmt=
+dqstring="Internal Medicine at Valley View"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring=" -55"
+fmt=
+dqstring="Roaring Fork Family Practice"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Mindfulness Training"
+fmt=
+dqstring="Highlands Health for Life"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Aspen Internal Medicine Consultants"
+fmt=
+dqstring="Denver Family Medicine"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Visiting Medical Clinic"
+fmt=
+dqstring="Boulder Creek Family Medicin"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Northwest Family Medicine"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Dakota Ridge Family Medicine"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Family Medical Associates"
+fmt=
+dqstring="Internal Medical Associates of Lafayette"
+fmt=
+dqstring="Parker Family Care"
+fmt=
+dqstring=" -1"
+fmt=
+dqstring="Family Care Specialists"
+fmt=
+dqstring="IT Matters"
+fmt=
+564!      *49,69;
+565   /**********************************************************************
+566   *   PRODUCT:   SAS
+567   *   VERSION:   9.4
+568   *   CREATOR:   External File Interface
+569   *   DATE:      26AUG22
+570   *   DESC:      Generated SAS Datastep Code
+571   *   TEMPLATE SOURCE:  (None Specified.)
+572   ***********************************************************************/
+573      data WORK.SURVEY0    ;
+574      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+575      infile 'S:/FM/FM/Data_Management_Team/raw data/FASTPracticeSurvey_raw_08222022.csv' delimiter
+575!  = ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+576         informat recordid best32. ;
+577         informat prac_entity_split_id best32. ;
+578         informat name $53. ;
+579         informat zip best32. ;
+580         informat state $1. ;
+581         informat survey_dtd yymmdd10. ;
+582         informat consulted___1 best32. ;
+583         informat consulted___2 best32. ;
+584         informat consulted___3 best32. ;
+585         informat consulted___4 best32. ;
+586         informat consulted___5 best32. ;
+587         informat consulted___6 best32. ;
+588         informat consulted___7 best32. ;
+589         informat consulted___8 best32. ;
+590         informat consulted_other $1. ;
+591         informat num_primary best32. ;
+592         informat fte_primary best32. ;
+593         informat num_psych best32. ;
+594         informat fte_psych best32. ;
+595         informat num_bhav best32. ;
+596         informat fte_bhav best32. ;
+597         informat num_nursing best32. ;
+598         informat num_front_office best32. ;
+599         informat num_peer_pvdr best32. ;
+600         informat num_pharm best32. ;
+601         informat num_other best32. ;
+602         informat patient_visits_wk best32. ;
+603         informat patient_provider_day best32. ;
+604         informat inpatientcare $5. ;
+605         informat race_white best32. ;
+606         informat race_black best32. ;
+607         informat race_native best32. ;
+608         informat race_hawaiian best32. ;
+609         informat race_asian best32. ;
+610         informat race_other best32. ;
+611         informat race_unknown best32. ;
+612         informat hispanic best32. ;
+613         informat non_hispanic best32. ;
+614         informat hispanic_unknown best32. ;
+615         informat age_0_17 best32. ;
+616         informat age_18_39 best32. ;
+617         informat age_40_59 best32. ;
+618         informat age_60_75 best32. ;
+619         informat age_76up best32. ;
+620         informat age_unk best32. ;
+621         informat gender_male best32. ;
+622         informat gender_female best32. ;
+623         informat gender_nonbinary best32. ;
+624         informat gender_none best32. ;
+625         informat demog_data best32. ;
+626         informat underserved best32. ;
+627         informat registry___1 best32. ;
+628         informat registry___2 best32. ;
+629         informat registry___3 best32. ;
+630         informat registry___4 best32. ;
+631         informat registry___5 best32. ;
+632         informat registry___6 best32. ;
+633         informat registry___7 best32. ;
+634         informat registry___8 best32. ;
+635         informat registry___9 best32. ;
+636         informat registry_config best32. ;
+637         informat teamlearn_formal_train $6. ;
+638         informat teamlearn_how_train best32. ;
+639         informat teamlearn_name_training best32. ;
+640         informat teamlearn_name_train_specify $60. ;
+641         informat train_together best32. ;
+642         informat train_small_teams best32. ;
+643         informat train_idv best32. ;
+644         informat fast_practice_survey_complete best32. ;
+645         format recordid best12. ;
+646         format prac_entity_split_id best12. ;
+647         format name $53. ;
+648         format zip best12. ;
+649         format state $1. ;
+650         format survey_dtd yymmdd10. ;
+651         format consulted___1 best12. ;
+652         format consulted___2 best12. ;
+653         format consulted___3 best12. ;
+654         format consulted___4 best12. ;
+655         format consulted___5 best12. ;
+656         format consulted___6 best12. ;
+657         format consulted___7 best12. ;
+658         format consulted___8 best12. ;
+659         format consulted_other $1. ;
+660         format num_primary best12. ;
+661         format fte_primary best12. ;
+662         format num_psych best12. ;
+663         format fte_psych best12. ;
+664         format num_bhav best12. ;
+665         format fte_bhav best12. ;
+666         format num_nursing best12. ;
+667         format num_front_office best12. ;
+668         format num_peer_pvdr best12. ;
+669         format num_pharm best12. ;
+670         format num_other best12. ;
+671         format patient_visits_wk best12. ;
+672         format patient_provider_day best12. ;
+673         format inpatientcare $5. ;
+674         format race_white best12. ;
+675         format race_black best12. ;
+676         format race_native best12. ;
+677         format race_hawaiian best12. ;
+678         format race_asian best12. ;
+679         format race_other best12. ;
+680         format race_unknown best12. ;
+681         format hispanic best12. ;
+682         format non_hispanic best12. ;
+683         format hispanic_unknown best12. ;
+684         format age_0_17 best12. ;
+685         format age_18_39 best12. ;
+686         format age_40_59 best12. ;
+687         format age_60_75 best12. ;
+688         format age_76up best12. ;
+689         format age_unk best12. ;
+690         format gender_male best12. ;
+691         format gender_female best12. ;
+692         format gender_nonbinary best12. ;
+693         format gender_none best12. ;
+694         format demog_data best12. ;
+695         format underserved best12. ;
+696         format registry___1 best12. ;
+697         format registry___2 best12. ;
+698         format registry___3 best12. ;
+699         format registry___4 best12. ;
+700         format registry___5 best12. ;
+701         format registry___6 best12. ;
+702         format registry___7 best12. ;
+703         format registry___8 best12. ;
+704         format registry___9 best12. ;
+705         format registry_config best12. ;
+706         format teamlearn_formal_train $6. ;
+707         format teamlearn_how_train best12. ;
+708         format teamlearn_name_training best12. ;
+709         format teamlearn_name_train_specify $60. ;
+710         format train_together best12. ;
+711         format train_small_teams best12. ;
+712         format train_idv best12. ;
+713         format fast_practice_survey_complete best12. ;
+714      input
+715                  recordid
+716                  prac_entity_split_id
+717                  name  $
+718                  zip
+719                  state  $
+720                  survey_dtd
+721                  consulted___1
+722                  consulted___2
+723                  consulted___3
+724                  consulted___4
+725                  consulted___5
+726                  consulted___6
+727                  consulted___7
+728                  consulted___8
+729                  consulted_other  $
+730                  num_primary
+731                  fte_primary
+732                  num_psych
+733                  fte_psych
+734                  num_bhav
+735                  fte_bhav
+736                  num_nursing
+737                  num_front_office
+738                  num_peer_pvdr
+739                  num_pharm
+740                  num_other
+741                  patient_visits_wk
+742                  patient_provider_day
+743                  inpatientcare  $
+744                  race_white
+745                  race_black
+746                  race_native
+747                  race_hawaiian
+748                  race_asian
+749                  race_other
+750                  race_unknown
+751                  hispanic
+752                  non_hispanic
+753                  hispanic_unknown
+754                  age_0_17
+755                  age_18_39
+756                  age_40_59
+757                  age_60_75
+758                  age_76up
+759                  age_unk
+760                  gender_male
+761                  gender_female
+762                  gender_nonbinary
+763                  gender_none
+764                  demog_data
+765                  underserved
+766                  registry___1
+767                  registry___2
+768                  registry___3
+769                  registry___4
+770                  registry___5
+771                  registry___6
+772                  registry___7
+773                  registry___8
+774                  registry___9
+775                  registry_config
+776                  teamlearn_formal_train  $
+777                  teamlearn_how_train
+778                  teamlearn_name_training
+779                  teamlearn_name_train_specify  $
+780                  train_together
+781                  train_small_teams
+782                  train_idv
+783                  fast_practice_survey_complete
+784      ;
+785      if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+786      run;
+
+NOTE: The infile 'S:/FM/FM/Data_Management_Team/raw data/FASTPracticeSurvey_raw_08222022.csv' is:
+      Filename=S:\FM\FM\Data_Management_Team\raw data\FASTPracticeSurvey_raw_08222022.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=10977,
+      Last Modified=22Aug2022:10:58:03,
+      Create Time=22Aug2022:11:01:54
+
+NOTE: 49 records were read from the infile 'S:/FM/FM/Data_Management_Team/raw
+      data/FASTPracticeSurvey_raw_08222022.csv'.
+      The minimum record length was 161.
+      The maximum record length was 293.
+NOTE: The data set WORK.SURVEY0 has 49 observations and 69 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.25 seconds
+      cpu time            0.25 seconds
+
+
+49 rows created in WORK.SURVEY0 from S:/FM/FM/Data_Management_Team/raw
+data/FASTPracticeSurvey_raw_08222022.csv.
+
+
+
+NOTE: WORK.SURVEY0 data set was successfully created.
+NOTE: The data set WORK.SURVEY0 has 49 observations and 69 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.76 seconds
+      cpu time            0.71 seconds
+
+
+787
+788  proc sql;
+789  create table survey1 as
+790  select prac_entity_split_id as PRACTICE_ID
+791      , zip                   as ZIPCODE
+792      , consulted___1         as SURVEY_CONSULT_CLINICIAN
+793      , consulted___2         as SURVEY_CONSULT_BH
+794      , consulted___3         as SURVEY_CONSULT_OTHER_CLINICAL
+795      , consulted___4         as SURVEY_CONSULT_OFFICE_MANAGER
+796      , consulted___5         as SURVEY_CONSULT_OFFICE_STAFF
+797      , consulted___6         as SURVEY_CONSULT_PEER_PROVIDER
+798      , consulted___7         as SURVEY_CONSULT_PHARMACIST
+799      , consulted_other       as SURVEY_CONSULT_OTHER
+800      , num_primary           as TOTAL_PRIMARY_CARE
+801      , fte_primary           as FTE_PRIMARY_CARE
+802      , num_psych             as TOTAL_PSYCH
+803      , fte_psych             as FTE_PSYCH
+804      , num_bhav              as TOTAL_BH
+805      , fte_bhav              as FTE_BH
+806      , num_nursing           as TOTAL_DIRECT_PT_CARE
+807      , num_front_office      as TOTAL_OFFICE_STAFF
+808      , num_peer_pvdr         as TOTAL_PEER_PROVIDERS
+809      , num_pharm             as TOTAL_PHARMACIST
+810      , num_other             as TOTAL_OTHER
+811      , inpatientcare
+812      , patient_provider_day  as PATIENT_DAILY_NUMBER
+813      , race_white            as PERCENTAGE_WHITE
+814      , race_black            as PERCENTAGE_BLACK
+815      , race_native           as PERCENTAGE_AIAN
+816      , race_asian            as PERCENTAGE_ASIAN
+817      , race_hawaiian         as PERCENTAGE_NHPI
+818      , race_other            as PERCENTAGE_OTHER_MIXED
+819      , race_unknown          as PERCENTAGE_UNKNOWN
+820      , hispanic              as HISPANIC_LATINX_PERCENT
+821      , non_hispanic          as NON_HISPANIC_LATINX
+822      , hispanic_unknown      as HISPANIC_LATINX_UNKNOWN
+823      , age_0_17              as PATIENT_AGE_0_17
+824      , age_18_39             as PATIENT_AGE_18_39
+825      , age_40_59             as PATIENT_AGE_40_59
+826      , age_60_75             as PATIENT_AGE_60_75
+827      , age_76up              as PATIENT_AGE_76_OLDER
+828      , gender_male           as GENDER_IDENTITY_MEN
+829      , gender_female         as GENDER_IDENTITY_WOMEN
+830      , gender_nonbinary      as GENDER_IDENTITY_NB
+831      , gender_none           as GENDER_IDENTITY_UNKNOWN
+832      , demog_data            as DATA_SOURCE
+833  from survey0;
+NOTE: Table WORK.SURVEY1 created, with 49 rows and 43 columns.
+
+834  quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.06 seconds
+
+
+834!       *49,43;
+835
+836  * Create calculated variables for 'x_collected';
+837  data survey2;
+838  set  survey1;
+839
+840  if hispanic_latinx_unknown = 100 then ETHNICITY_COLLECTED = 0;
+841      else ETHNICITY_COLLECTED = 1;
+842
+843  if GENDER_IDENTITY_UNKNOWN = 100 then GENDER_COLLECTED = 0;
+844      else GENDER_COLLECTED = 1;
+845
+846  if PERCENTAGE_UNKNOWN = 100 then RACE_COLLECTED = 0;
+847      else RACE_COLLECTED = 1;
+848
+849  Grantee = 'CO';
+850
+851  run;
+
+NOTE: There were 49 observations read from the data set WORK.SURVEY1.
+NOTE: The data set WORK.SURVEY2 has 49 observations and 47 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+
+
+852  *49, 47;
+853
+854
+855  * Recode inpatient care, then drop
+856      > original: 1) Yes, 0) No clinicians visit patients in hosp, -1) No Hospital-based staff
+856! provides
+857      > for norc: 1) Yes, 2) No clinicians visit patients in hosp,  3) No Hospital-based staff
+857! provides;
+858  data survey3;
+859  set  survey2;
+860  if inpatientcare = -1     then INPATIENT_ADMISSIONS = 3;
+861  else if inpatientcare = 0 then INPATIENT_ADMISSIONS = 2;
+862  else if inpatientcare = 1 then INPATIENT_ADMISSIONS = 1;
+863  else INPATIENT_ADMISSIONS = 999;
+864  run;
+
+NOTE: Character values have been converted to numeric values at the places given by: (Line):(Column).
+      860:4   861:9   862:9
+NOTE: There were 49 observations read from the data set WORK.SURVEY2.
+NOTE: The data set WORK.SURVEY3 has 49 observations and 48 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+
+
+864!      *49, 48;
+865  * original had 34 (-1 --> recode to "3") n=7 (0 --> recoded to "2") and n=5 (1) ;
+866
+867  proc freq data = survey3;
+868  tables inpatient:;
+869  run;
+
+NOTE: There were 49 observations read from the data set WORK.SURVEY3.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.07 seconds
+
+
+870
+871  data survey4 (drop=inpatientcare);
+872  set  survey3;
+873  run;
+
+NOTE: There were 49 observations read from the data set WORK.SURVEY3.
+NOTE: The data set WORK.SURVEY4 has 49 observations and 47 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+
+
+873!      *49, 47;
+874
+875
+876
+877              * Find instances with >1 practice_id and send to Sabrina Lor;
+878              proc sql;
+879              create table norc.survey_multiple_ids as
+880              select *
+881                  , count(practice_id)
+882              from survey4
+883              group by practice_id
+884              having count(practice_id) >1;
+NOTE: The query requires remerging summary statistics back with the original data.
+NOTE: Table NORC.SURVEY_MULTIPLE_IDS created, with 5 rows and 48 columns.
+
+885              quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.06 seconds
+
+
+886
+887              * exported and sent to Sabrina Lor 08/25/2022;
+888                          proc export data = norc.survey_multiple_ids
+889                              outfile = "&norc/pracsurvey_mult_&datestamp"
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/results
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220826
+890                              dbms=xlsx replace;
+891                          run;
+
+NOTE: The export data set has 5 observations and 48 variables.
+NOTE: "S:\FM\FM\Data_Management_Team\norc\results\pracsurvey_mult_20220826.xlsx" file was
+      successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.04 seconds
+
+
+892
+893  data survey5;
+894  set  survey4;
+895  IF practice_id in (35, 141) then delete;
+896  run;
+
+NOTE: There were 49 observations read from the data set WORK.SURVEY4.
+NOTE: The data set WORK.SURVEY5 has 44 observations and 47 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+
+
+896!      * should drop 5 instances to become 44 > actual: 44, 47;
+897
+898  *save to library;
+899  data norc.survey;
+900  set  survey5;
+901  run;
+
+NOTE: There were 44 observations read from the data set WORK.SURVEY5.
+NOTE: The data set NORC.SURVEY has 44 observations and 47 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.04 seconds
+
+
+901!      *44, 47;
+902
+903  proc sort data = norc.survey; by practice_id; run;
+
+NOTE: There were 44 observations read from the data set NORC.SURVEY.
+NOTE: The data set NORC.SURVEY has 44 observations and 47 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.04 seconds
+
+
+904
+905  proc freq data = norc.survey;
+906  run;
+
+NOTE: There were 44 observations read from the data set NORC.SURVEY.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.68 seconds
+      cpu time            0.64 seconds
+
+
+907
+908  * Don't need to export: wait until merged with PracticeApp;
+

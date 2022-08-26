@@ -7,10 +7,8 @@ PROCESS:         Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <
 NOTES:           These are no longer in file but were in January:
                      - Use split_id_verify 
                      - Use dupdelete remove 1's
-
                  Check:
-                 - removed 2164 last time - do again? (had 2x records)
-                 _ no keep / etc columns - all look complete - so kept all.
+                - no keep / etc columns - all look complete - so kept all.
                 - Sent duplicate practice_id's to Sabrina Lor - practice_id 35, 141 this time 
                  Final result for upload should have 74 columns and be in order acc to &template_fields;
 -----------------------------------------------------------------------------------------------------
@@ -130,7 +128,7 @@ run; *49, 47;
             create table norc.survey_multiple_ids as 
             select *
                 , count(practice_id)
-            from survey0
+            from survey4
             group by practice_id
             having count(practice_id) >1;
             quit;
