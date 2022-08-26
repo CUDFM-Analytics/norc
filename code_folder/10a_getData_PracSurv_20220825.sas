@@ -95,7 +95,7 @@ select prac_entity_split_id as PRACTICE_ID
     , gender_nonbinary      as GENDER_IDENTITY_NB
     , gender_none           as GENDER_IDENTITY_UNKNOWN
     , demog_data            as DATA_SOURCE
-from survey0;
+from survey0a;
 quit; *49,43;
 
 * Create calculated variables for 'x_collected';
