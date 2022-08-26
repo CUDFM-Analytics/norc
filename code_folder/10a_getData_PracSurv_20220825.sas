@@ -34,6 +34,22 @@ proc import
         dbms = csv replace;
 run; *49,69;
 
+proc sort data = survey0; 
+by practice_id; 
+run;
+
+*Per email thread with Sabrina re: multiple ID's, documented in doc file:;
+data survey0a;
+set  survey0;
+if name = "Aspen Internal Medicine Consultants" then prac_entity_split_id = 3106;
+if name = "Denver Family Medicine" then prac_entity_split_id = 2070;
+if name = "Internal Medical Associates of Lafayette" then prac_entity_split_id = 2601;
+run;
+
+proc print data = survey0a;
+var prac_entity_split_id name; 
+run;
+
 proc sql; 
 create table survey1 as 
 select prac_entity_split_id as PRACTICE_ID
@@ -100,7 +116,6 @@ Grantee = 'CO';
 run; 
 *49, 47;
 
-
 * Recode inpatient care, then drop
     > original: 1) Yes, 0) No clinicians visit patients in hosp, -1) No Hospital-based staff provides 
     > for norc: 1) Yes, 2) No clinicians visit patients in hosp,  3) No Hospital-based staff provides;
@@ -121,32 +136,30 @@ data survey4 (drop=inpatientcare);
 set  survey3;
 run; *49, 47;
 
+/*            * Find instances with >1 practice_id and send to Sabrina Lor;*/
+/*            proc sql; */
+/*            create table norc.survey_multiple_ids as */
+/*            select **/
+/*                , count(practice_id)*/
+/*            from survey4*/
+/*            group by practice_id*/
+/*            having count(practice_id) >1;*/
+/*            quit;*/
+/**/
+/*            * exported and sent to Sabrina Lor 08/25/2022;*/
+/*                        proc export data = norc.survey_multiple_ids*/
+/*                            outfile = "&norc/pracsurvey_mult_&datestamp"*/
+/*                            dbms=xlsx replace;*/
+/*                        run;*/
 
-
-            * Find instances with >1 practice_id and send to Sabrina Lor;
-            proc sql; 
-            create table norc.survey_multiple_ids as 
-            select *
-                , count(practice_id)
-            from survey4
-            group by practice_id
-            having count(practice_id) >1;
-            quit;
-
-            * exported and sent to Sabrina Lor 08/25/2022;
-                        proc export data = norc.survey_multiple_ids
-                            outfile = "&norc/pracsurvey_mult_&datestamp"
-                            dbms=xlsx replace;
-                        run;
-
-data survey5;
-set  survey4;
-IF practice_id in (35, 141) then delete; 
-run; * should drop 5 instances to become 44 > actual: 44, 47;
+/*data survey5;*/
+/*set  survey4;*/
+/*IF practice_id in (35, 141) then delete; */
+/*run; * should drop 5 instances to become 44 > actual: 44, 47;*/
 
 *save to library;
 data norc.survey;
-set  survey5;
+set  survey4;
 run; *44, 47;
 
 proc sort data = norc.survey; by practice_id; run;

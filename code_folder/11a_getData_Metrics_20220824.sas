@@ -23,15 +23,6 @@ LAST RAN: 08/25/2022
 %include "&root/norc/code_folder/00_paths_lets.sas"; 
          *has paths and all let statements for project;
 
-* LIBNAME --------------------------------------------;
-libname norc "&norc";
-* Options --------------------------------------------;
-OPTIONS mprint 
-        mlogic 
-        symbolgen
-        nonumber
-        validvarname = V7;
-
 proc import 
         file = "&metrics."
         out = metrics0
@@ -67,7 +58,7 @@ rename
     m_mat     = M5_NUMBER
     m_referrd = M6_NUMBER;
 GRANTEE = 'CO';
-run; 
+run; *82,9;
 
 proc freq data = metrics2;
 tables practice_id*task_id /nopercent norow nocol;
@@ -111,7 +102,7 @@ data norc.metrics_baseline (drop=task_id) norc.metrics_post (drop=task_id);
 set metrics3;
 if task_id = 194 then output norc.metrics_baseline; 
 if task_id = 215 then output norc.metrics_post;    
-run;
+run; *44 / 34;
 
 * Export files;
 proc export data = norc.metrics_baseline

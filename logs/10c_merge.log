@@ -1,25 +1,25 @@
-1540  /*
-1541  PURPOSE:        Merge survey and app;
-1542                  put in order required by template
-1543  PROGRAMMER:     K Wiggins
-1544  DATE:           08/25/2022
-1545  PROCESS:        Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
-1546  NOTES:
-1547                  Final result for upload should have 74 columns and be in order acc to
-1547! &template_fields;
-1548  ------------------------------------------------------------------------------------------------
-1548! -----
-1549  CHANGE LOG
-1550     Date         By      Purpose
-1551  1. 01/15/22     KW      Copied from Dionisia's original to not mess with it
-1552  2. 08/25/22     KW      Adapted from last iteration survey only, NORC
-1553
-1554  LAST RAN: 08/26/2022*/
-1555
-1556  * ROOT FOLDER  ---------------------------------------;
-1557  %let root = S:/FM/FM/Data_Management_Team;
-1558  * INCLUDE --------------------------------------------;
-1559  %include "&root/norc/code_folder/00_paths_lets.sas";
+1968  /*
+1969  PURPOSE:        Merge survey and app;
+1970                  put in order required by template
+1971  PROGRAMMER:     K Wiggins
+1972  DATE:           08/25/2022
+1973  PROCESS:        Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
+1974  NOTES:
+1975                  Final result for upload should have 74 columns and be in order acc to
+1975! &template_fields;
+1976  ------------------------------------------------------------------------------------------------
+1976! -----
+1977  CHANGE LOG
+1978     Date         By      Purpose
+1979  1. 01/15/22     KW      Copied from Dionisia's original to not mess with it
+1980  2. 08/25/22     KW      Adapted from last iteration survey only, NORC
+1981
+1982  LAST RAN: 08/26/2022*/
+1983
+1984  * ROOT FOLDER  ---------------------------------------;
+1985  %let root = S:/FM/FM/Data_Management_Team;
+1986  * INCLUDE --------------------------------------------;
+1987  %include "&root/norc/code_folder/00_paths_lets.sas";
 SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
 SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
 SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
@@ -50,14 +50,14 @@ NOTE: PROCEDURE FORMAT used (Total process time):
 NOTE: Overwriting existing template/link: Base.Freq.OneWayList
 NOTE: TABLE 'Base.Freq.OneWayList' has been saved to: SASUSER.TEMPLAT
 NOTE: PROCEDURE TEMPLATE used (Total process time):
-      real time           0.06 seconds
-      cpu time            0.06 seconds
+      real time           0.03 seconds
+      cpu time            0.03 seconds
 
 
 
 NOTE: DATA statement used (Total process time):
-      real time           0.01 seconds
-      cpu time            0.01 seconds
+      real time           0.00 seconds
+      cpu time            0.00 seconds
 
 
 SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220826
@@ -66,56 +66,56 @@ SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/r
 NOTE: Libref NORC was successfully assigned as follows:
       Engine:        V9
       Physical Name: S:\FM\FM\Data_Management_Team\norc\results
-1631  * has paths and all let statements for project;
-1632
-1633  * merge;
-1634  proc sql;
-1635  create table survey_app as
-1636  select a.*
-1637      , b.*
-1638  from norc.survey as a
-1639  left join norc.app as b
-1640  on a.practice_id = b.practice_id;
+2059  * has paths and all let statements for project;
+2060
+2061  * merge;
+2062  proc sql;
+2063  create table survey_app as
+2064  select a.*
+2065      , b.*
+2066  from norc.survey as a
+2067  left join norc.app as b
+2068  on a.practice_id = b.practice_id;
 WARNING: Variable PRACTICE_ID already exists on file WORK.SURVEY_APP.
-NOTE: Table WORK.SURVEY_APP created, with 44 rows and 64 columns.
+NOTE: Table WORK.SURVEY_APP created, with 49 rows and 64 columns.
 
-1641  quit;
+2069  quit;
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.09 seconds
-      cpu time            0.04 seconds
+      real time           0.10 seconds
+      cpu time            0.06 seconds
 
 
-1642
-1643  * change . to 999;
-1644  proc stdize data=survey_app
-1645      out=survey_app1
-1646      reponly missing=999;
-1647  run;
+2070
+2071  * change . to 999;
+2072  proc stdize data=survey_app
+2073              out=survey_app1
+2074              reponly missing=999;
+2075  run;
 
 NOTE: No VAR statement is given. All numerical variables not named elsewhere make up the first set of
       variables.
-NOTE: There were 44 observations read from the data set WORK.SURVEY_APP.
-NOTE: The data set WORK.SURVEY_APP1 has 44 observations and 64 variables.
+NOTE: There were 49 observations read from the data set WORK.SURVEY_APP.
+NOTE: The data set WORK.SURVEY_APP1 has 49 observations and 64 variables.
 NOTE: PROCEDURE STDIZE used (Total process time):
       real time           0.03 seconds
       cpu time            0.03 seconds
 
 
-1647!      *44, 63;
-1648
-1649  * find template fields need to keep / order;
-1650  proc sql;
-1651  select A
-1652  into :order separated by ' '
-1653  from norc.survey_field_order;
-1654  quit;
+2075!      *44, 63;
+2076
+2077  * find template fields need to keep / order;
+2078  proc sql;
+2079  select A
+2080  into :order separated by ' '
+2081  from norc.survey_field_order;
+2082  quit;
 NOTE: PROCEDURE SQL used (Total process time):
-      real time           0.09 seconds
+      real time           0.10 seconds
       cpu time            0.07 seconds
 
 
-1655
-1656  data survey_app1;
+2083
+2084  data survey_app2;
 SYMBOLGEN:  Macro variable ORDER resolves to GRANTEE PRACTICE_ID ZIPCODE SURVEY_CONSULT_CLINICIAN
             SURVEY_CONSULT_BH SURVEY_CONSULT_OTHER_CLINICAL SURVEY_CONSULT_OFFICE_MANAGER
             SURVEY_CONSULT_OFFICE_STAFF SURVEY_CONSULT_PEER_PROVIDER SURVEY_CONSULT_PHARMACIST
@@ -133,75 +133,81 @@ SYMBOLGEN:  Macro variable ORDER resolves to GRANTEE PRACTICE_ID ZIPCODE SURVEY_
             GENDER_IDENTITY_NB GENDER_IDENTITY_UNKNOWN PAYER_PERCENTAGE_MEDICARE
             PAYER_PERCENTAGE_MEDICAID PAYER_PERCENTAGE_DUAL PAYER_PERCENTAGE_PRIVATE
             PAYER_PERCENTAGE_NO_INSURANCE PAYER_PERCENTAGE_OTHER DATA_SOURCE
-1657  retain &order.;
-1658  set  survey_app;
-1659  run;
+2085  retain &order.;
+2086  set  survey_app1;
+2087  run;
 
-NOTE: There were 44 observations read from the data set WORK.SURVEY_APP.
-NOTE: The data set WORK.SURVEY_APP1 has 44 observations and 64 variables.
+NOTE: There were 49 observations read from the data set WORK.SURVEY_APP1.
+NOTE: The data set WORK.SURVEY_APP2 has 49 observations and 64 variables.
 NOTE: DATA statement used (Total process time):
       real time           0.06 seconds
       cpu time            0.06 seconds
 
 
-1660
-1661  data norc.survey_baseline;
-1662  set  survey_app1;
-1663  run;
+2088
+2089  data norc.survey_baseline;
+2090  set  survey_app2;
+2091  run;
 
-NOTE: There were 44 observations read from the data set WORK.SURVEY_APP1.
-NOTE: The data set NORC.SURVEY_BASELINE has 44 observations and 64 variables.
+NOTE: There were 49 observations read from the data set WORK.SURVEY_APP2.
+NOTE: The data set NORC.SURVEY_BASELINE has 49 observations and 64 variables.
 NOTE: DATA statement used (Total process time):
-      real time           0.09 seconds
-      cpu time            0.06 seconds
+      real time           0.10 seconds
+      cpu time            0.01 seconds
 
 
-1664
-1665  * Export files;
-1666  proc export data = norc.survey_baseline
-1667      outfile = "&norc/survey_baseline_&datestamp"
+2091!      *44;
+2092
+2093  * Export files;
+2094  proc export data = norc.survey_baseline
+2095      outfile = "&norc/survey_baseline_&datestamp"
 SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/results
 SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220826
-1668      dbms=xlsx replace;
-1669  run;
+2096      dbms=xlsx replace;
+2097  run;
 
-NOTE: The export data set has 44 observations and 64 variables.
+NOTE: The export data set has 49 observations and 64 variables.
 NOTE: "S:\FM\FM\Data_Management_Team\norc\results\survey_baseline_20220826.xlsx" file was
       successfully created.
 NOTE: PROCEDURE EXPORT used (Total process time):
-      real time           0.18 seconds
-      cpu time            0.06 seconds
+      real time           0.21 seconds
+      cpu time            0.10 seconds
 
 
-1670
-1671
-1672  * delete BAK files created by PROC EXPORT;
-1673  /*filename bak  "&norc/survey_post_20220825.xlsx.bak";*/
-1674  /*filename bak2 "&norc/survey_baseline_20220825.xlsx.bak"; */
-1675  /**/
-1676  /*data _null_;*/
-1677  /* rc = fdelete("bak");*/
-1678  /* rc = fdelete("bak2");*/
-1679  /*run;*/
-1680  /**/
-1681  /*filename bak clear; */
-1682  /*filename bak2 clear;*/
-
-1683  filename bak2 "&norc/survey_baseline_20220826.xlsx.bak";
+2098
+2099
+2100  * delete BAK files created by PROC EXPORT;
+2101  filename bak "&norc/survey_baseline_20220826.xlsx.bak";
 SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/results
-1684  data _null_;
-1685   rc = fdelete("bak");
-1686   rc = fdelete("bak2");
-1687  run;
+2102
+2103  data _null_;
+2104   rc = fdelete("bak");
+2105  run;
 
 NOTE: DATA statement used (Total process time):
       real time           0.03 seconds
       cpu time            0.01 seconds
 
 
-1688
-1689  filename bak clear;
-WARNING: No logical assign for filename BAK.
-1690  filename bak2 clear;
-NOTE: Fileref BAK2 has been deassigned.
+2106
+2107  filename bak clear;
+NOTE: Fileref BAK has been deassigned.
+2108
+2109  proc contents data = norc.survey_baseline;
+2110  run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.07 seconds
+
+
+2111
+2112  proc print data = norc.survey_baseline;
+2113  run;
+
+NOTE: There were 49 observations read from the data set NORC.SURVEY_BASELINE.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.31 seconds
+      cpu time            0.32 seconds
+
 
