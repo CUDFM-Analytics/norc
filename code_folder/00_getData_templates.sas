@@ -8,4 +8,5 @@ proc import
     datafile = survtemp
     out      = norc.survey_field_order
     dbms     = xlsx replace;
+	getnames = no;
 run;

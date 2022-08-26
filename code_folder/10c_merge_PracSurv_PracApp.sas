@@ -32,8 +32,8 @@ quit;
 
 * change . to 999;
 proc stdize data=survey_app
-    out=survey_app1
-    reponly missing=999;
+    		out=survey_app1
+    		reponly missing=999;
 run; *44, 63;
 
 * find template fields need to keep / order; 
@@ -43,14 +43,14 @@ into :order separated by ' '
 from norc.survey_field_order;
 quit;
 
-data survey_app1;
+data survey_app2;
 retain &order.;
-set  survey_app;
+set  survey_app1;
 run;
 
 data norc.survey_baseline;
-set  survey_app1;
-run;
+set  survey_app2;
+run; *44;
 
 * Export files;
 proc export data = norc.survey_baseline
@@ -60,13 +60,16 @@ run;
 
 
 * delete BAK files created by PROC EXPORT;
-/*filename bak  "&norc/survey_post_20220825.xlsx.bak";*/
-/*filename bak2 "&norc/survey_baseline_20220825.xlsx.bak"; */
-/**/
-/*data _null_;*/
-/* rc = fdelete("bak");*/
-/* rc = fdelete("bak2");*/
-/*run;*/
-/**/
-/*filename bak clear; */
-/*filename bak2 clear;*/
+filename bak "&norc/survey_baseline_20220826.xlsx.bak"; 
+
+data _null_;
+ rc = fdelete("bak");
+run;
+
+filename bak clear;
+
+proc contents data = norc.survey_baseline;
+run;
+
+proc print data = norc.survey_baseline;
+run;
