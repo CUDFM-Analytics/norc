@@ -30,12 +30,6 @@ left join norc.app as b
 on a.practice_id = b.practice_id; 
 quit; 
 
-* change . to 999;
-proc stdize data=survey_app
-    		out=survey_app1
-    		reponly missing=999;
-run; *44, 63;
-
 * find template fields need to keep / order; 
 proc sql;
 select A
