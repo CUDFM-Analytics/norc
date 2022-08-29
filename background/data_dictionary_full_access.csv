@@ -17,22 +17,22 @@ fte_psych,fast_practice_survey,,text,Psychiatrist - FTE,,Combined FTE of psychia
 num_bhav,fast_practice_survey,,text,"Behavioral Health Clinicians (psychologists, counselors, social workers, licensed clinical social workers, licensed mental health counselors, chemical dependence and addiction counselors) - Number of Practice members",,Total number of behavioral health clinicians.,number,,100,,,,,,,,
 fte_bhav,fast_practice_survey,,text,"Behavioral Health Clinicians (psychologists, counselors, social workers, licensed clinical social workers, licensed mental health counselors, chemical dependence and addiction counselors) - FTE",,Combined FTE of behavioral health clinicians.,,,,,,,,,,,
 num_prompt,fast_practice_survey,,descriptive,7. Please provide the number of practice members for each of the following type of staff:,,Total number of nursing staff.,,,,,,,,,,,
-num_nursing,fast_practice_survey,,text,"Nursing Staff (RN, LPN/LVN, medical assistant, certified medical assistant, medical technician) - Number of Practice Members
-",,Total number of nursing staff.,number,,100,,,,,,,,
-num_front_office,fast_practice_survey,,text,"Front Office Staff (those in practice operations, not directly involved in patient care, such as receptionists, schedulers, billing staff, data analysts, etc.) - Number of Practice Members
-",,Total number of front office staff.,number,,100,,,,,,,,
-num_peer_pvdr,fast_practice_survey,,text,"Peer Providers (certified peer specialist, peer support specialist, recovery coach) - Number of Practice Members
-",,Total number of peer providers.,number,,100,,,,,,,,
-num_pharm,fast_practice_survey,,text,"PharmD, Clinical Parmacist, Pharmacy Technician - Number of Practice Members
-",,Total number of pharmacy staff.,number,,100,,,,,,,,
-num_other,fast_practice_survey,,text,"Other - Number of Practice Members
-
-",,Total number of other staff.,number,,100,,,,,,,,
+num_nursing,fast_practice_survey,,text,"Nursing Staff (RN, LPN/LVN, medical assistant, certified medical assistant, medical technician) - Number of Practice Members",,,,,,,,,,,,,
+",,Total number of nursing staff.,number,,100,,,,,,,,",,,,,,,,,,,,,,,,,
+num_front_office,fast_practice_survey,,text,"Front Office Staff (those in practice operations, not directly involved in patient care, such as receptionists, schedulers, billing staff, data analysts, etc.) - Number of Practice Members",,,,,,,,,,,,,
+",,Total number of front office staff.,number,,100,,,,,,,,",,,,,,,,,,,,,,,,,
+num_peer_pvdr,fast_practice_survey,,text,"Peer Providers (certified peer specialist, peer support specialist, recovery coach) - Number of Practice Members",,,,,,,,,,,,,
+",,Total number of peer providers.,number,,100,,,,,,,,",,,,,,,,,,,,,,,,,
+num_pharm,fast_practice_survey,,text,"PharmD, Clinical Parmacist, Pharmacy Technician - Number of Practice Members",,,,,,,,,,,,,
+",,Total number of pharmacy staff.,number,,100,,,,,,,,",,,,,,,,,,,,,,,,,
+num_other,fast_practice_survey,,text,Other - Number of Practice Members,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+",,Total number of other staff.,number,,100,,,,,,,,",,,,,,,,,,,,,,,,,
 patient_visits_wk,fast_practice_survey,,text,"<div class=""rich-text-field-label""><p>8. Please estimate the total number of patient visits over a typical week <span style=""text-decoration: underline;"">at your practice.</span></p> <p># of visits per week:</p></div>",,,number,,10000,,,,,,,,
-patient_provider_day,fast_practice_survey,,text,"9.	On average, how many patients does a full-time clinician in your practice see on a typical day?
-
-Average # patients seen: 
-",,,number,,50,,,,,,,,
+patient_provider_day,fast_practice_survey,,text,"9.	On average, how many patients does a full-time clinician in your practice see on a typical day?",,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+Average # patients seen: ,,,,,,,,,,,,,,,,,
+",,,number,,50,,,,,,,,",,,,,,,,,,,,,,,,,
 inpatientcare,fast_practice_survey,,radio,"10.	Do clinicians from your practice provide inpatient care when patients from the practice are admitted to the hospital?","1, Yes, clinicians provide inpatient care. | 0, No. Clinicians visit patients in hospital but do not provide inpatient care. | -1, No. Hospital-based staff provides all care for inpatients.",,,,,,,,,,,,
 race,fast_practice_survey,,descriptive,"<div class=""rich-text-field-label""><div class=""rich-text-field-label""> <p>11. Please provide the percentage of your patients in the following categories. <em>If you don't collect this information, please provide your best estimate.</em> <br /><span style=""font-weight: normal;""><em>(SHOULD ADD TO 100%)</em></span></p> </div></div>",,,,,,,,,,,,,
 race_white,fast_practice_survey,,text,White,,,number,,100,,,,,,,,
