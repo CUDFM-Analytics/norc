@@ -18,6 +18,7 @@ filename survtemp "&survtemplate";
 %let metrics     = &data/FASTMetrics_raw_08222022.xlsx;
 %let metrics_sub = &data/FASTMetricsSubmission_raw_08222022.xlsx;
 %let sbirt       = &data/FASTSBIRT_raw_08222022.xlsx;
+%let fieldnote	 = &data/FASTFieldnote_raw_08222022.xlsx;
 
 * non-Qualtrics sets (only need row 1, data starts on row 2;
 %let meta        = &data/FASTPracticeMeta_raw_08222022.csv;
