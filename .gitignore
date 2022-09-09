@@ -1,4 +1,5 @@
 # Ignore data folders
 04_data/
+03_data/
 05_uploadResults_aug2022/
 *.sas7bdat
