@@ -4,8 +4,10 @@
 %let data = &root/raw data; *Sabrina's uploads;
 %let norc = &root/norc/03_data;
 %let form = &root/norc/01_background; *template file;
+%let code = &root/norc/02_code;
 %let logs = &root/norc/02_logs;
 %let upld = &root/norc/05_uploaded_august2022;
+
 
 * FILES ----------------------------------------------;
 %let template = &form/norc_templates_comments_20220824.xlsx;
