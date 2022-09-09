@@ -1,11 +1,11 @@
 
 * FOLDERS --------------------------------------------;
 %let root = S:/FM/FM/Data_Management_Team;
-%let data = &root/raw data;
-%let norc = &root/norc/results;
-%let form = &root/norc/background; *template file;
-%let logs = &root/norc/logs;
-%let upld = &root/norc/uploaded_august2022;
+%let data = &root/raw data; *Sabrina's uploads;
+%let norc = &root/norc/03_data;
+%let form = &root/norc/01_background; *template file;
+%let logs = &root/norc/02_logs;
+%let upld = &root/norc/05_uploaded_august2022;
 
 * FILES ----------------------------------------------;
 %let template = &form/norc_templates_comments_20220824.xlsx;
@@ -18,7 +18,7 @@ filename survtemp "&survtemplate";
 %let metrics     = &data/FASTMetrics_raw_08222022.xlsx;
 %let metrics_sub = &data/FASTMetricsSubmission_raw_08222022.xlsx;
 %let sbirt       = &data/FASTSBIRT_raw_08222022.xlsx;
-%let fieldnote	 = &data/FASTFieldnote_raw_08222022.xlsx;
+%let fieldnote   = &data/FASTFieldnote_raw_08222022.xlsx;
 
 * non-Qualtrics sets (only need row 1, data starts on row 2;
 %let meta        = &data/FASTPracticeMeta_raw_08222022.csv;
@@ -27,10 +27,6 @@ filename survtemp "&survtemplate";
 %let application = &data/FASTApplication_raw_08222022.csv;
 * Macros ---------------------------------------------;
 %let template_fields = norc.templates;
-
-* Formats --------------------------------------------;
-%let onedrive    = C:/Users/wigginki/OneDrive - The University of Colorado Denver/Documents/projects;
-%include "&onedrive/00_sas_formats/procFreq_pct.sas";
 
 * Get date ;
 data _null_;

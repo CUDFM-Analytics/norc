@@ -1,28 +1,28 @@
 /*
-PROGRAM:   		NORC upload
+PROGRAM:        NORC upload
 PURPOSE:        Intervention Tracker / Field Note
 PROGRAMMER:     K Wiggins
 DATE:           08/28/2022
 PROCESS:        Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
 NOTES:          Can't find old file, DD said no code - she's out this week so do my best
 Variables needed, in order: 
-		GRANTEE
-		PRACTICE_ID
-		DATE_OF_CONTACT
-		MODE
-		MODE_OTHER
-		DURATION
-		PRIMARY_PURPOSE
-		PRIMARY_PURPOSE_OTHER
-		ADDITIONAL_KICKOFF
-		ADDITIONAL_ADMIN
-		ADDITIONAL_WORKFLOW
-		ADDITIONAL_HIT
-		ADDITIONAL_QUALITY
-		ADDITIONAL_ENGAGEMENT
-		ADDITIONAL_TRAINING
-		ADDITIONAL_OTHER
-		NOTES
+        GRANTEE
+        PRACTICE_ID
+        DATE_OF_CONTACT
+        MODE
+        MODE_OTHER
+        DURATION
+        PRIMARY_PURPOSE
+        PRIMARY_PURPOSE_OTHER
+        ADDITIONAL_KICKOFF
+        ADDITIONAL_ADMIN
+        ADDITIONAL_WORKFLOW
+        ADDITIONAL_HIT
+        ADDITIONAL_QUALITY
+        ADDITIONAL_ENGAGEMENT
+        ADDITIONAL_TRAINING
+        ADDITIONAL_OTHER
+        NOTES
 
 -----------------------------------------------------------------------------------------------------
 CHANGE LOG
@@ -36,7 +36,7 @@ LAST RAN: 08/29/2022
 * ROOT FOLDER  ---------------------------------------;
 %let root = S:/FM/FM/Data_Management_Team;
 * INCLUDE --------------------------------------------;
-%include "&root/norc/code_folder/00_paths_lets.sas"; 
+%include "&root/norc/02_code/00_paths_aliases.sas"; 
    *has paths and all let statements for project;
 
 proc import 
@@ -66,69 +66,69 @@ data fn1;
 retain sim_id;
 set  fn0;
 drop browser: 
-	distribution: 
-	IPAddress 
-	Location: 
-	Q88: 
-	Qretired: 
-	RE1: 
-	RE5: 
-	Userlanguage 
-	Duration__in_seconds_
-	startdate
-	split_user_email_address
-	assigned_entity_id 
-	clinical_hit_advisor_pto 
-	cohort 
-	recipient: 
-	Progress 
-	keep_or_delete 
-	FFN: 
-	delete
-	finished
-	responseID
-	ExternalReference
-	desc:
-	concerns
-	pdf_export
-	practice_type
-	participants__66
-	EndDate
-	end_dtd
-	entity_name
-	entity_task_id
-	practice_facilitator_pto
-	practice_organization
-	practice_site
-	participants:
-	struggling
-	no_encounters:
-	status
-	sbirt: 
-	total_encounters
-	recordeddate
-	group_mtg_engage
-	no_encounters_other
-	group_mtg_num
-	group_mtg_focus
-	;
+    distribution: 
+    IPAddress 
+    Location: 
+    Q88: 
+    Qretired: 
+    RE1: 
+    RE5: 
+    Userlanguage 
+    Duration__in_seconds_
+    startdate
+    split_user_email_address
+    assigned_entity_id 
+    clinical_hit_advisor_pto 
+    cohort 
+    recipient: 
+    Progress 
+    keep_or_delete 
+    FFN: 
+    delete
+    finished
+    responseID
+    ExternalReference
+    desc:
+    concerns
+    pdf_export
+    practice_type
+    participants__66
+    EndDate
+    end_dtd
+    entity_name
+    entity_task_id
+    practice_facilitator_pto
+    practice_organization
+    practice_site
+    participants:
+    struggling
+    no_encounters:
+    status
+    sbirt: 
+    total_encounters
+    recordeddate
+    group_mtg_engage
+    no_encounters_other
+    group_mtg_num
+    group_mtg_focus
+    ;
 label session_num_0 = session_num_0
-	session_num_1   = purpose_kickoff
-	session_num_2   = Purpose_admin
-	session_num_3   = purpose_workflow
-	session_num_4   = purpose_data_HIT
-	session_num_5   = purpose_QI
-	session_num_6   = purpose_engagement
-	session_num_7   = purpose_training
-	session_num_8   = purpose_other
-	group_mtg_num   = "number of FAST group meetings practice participated in"
-	group_mtg_focus = "main focus: monthly meeting"
-	num_ecounters_1 = "n Virtual QI Team Meeting(s)"
-	num_ecounters_2 = "n Virtual meetings Other"
-	num_ecounters_3 = "n Phone"
-	num_ecounters_4 = "n Email"
-	num_ecounters_5 = "n Other"
-	end_date        = "date session 6 completed";
+    session_num_1   = purpose_kickoff
+    session_num_2   = Purpose_admin
+    session_num_3   = purpose_workflow
+    session_num_4   = purpose_data_HIT
+    session_num_5   = purpose_QI
+    session_num_6   = purpose_engagement
+    session_num_7   = purpose_training
+    session_num_8   = purpose_other
+    group_mtg_num   = "number of FAST group meetings practice participated in"
+    group_mtg_focus = "main focus: monthly meeting"
+    num_ecounters_1 = "n Virtual QI Team Meeting(s)"
+    num_ecounters_2 = "n Virtual meetings Other"
+    num_ecounters_3 = "n Phone"
+    num_ecounters_4 = "n Email"
+    num_ecounters_5 = "n Other"
+    end_date        = "date session 6 completed";
 where sim_id ne '';
 format time: time_.;
 run; *515, 30;
@@ -152,13 +152,13 @@ proc sql;
 create table fn3 as 
 select * from fn2
 where practice_id in (select practice_id 
-					  from norc.survey_baseline);
+                      from norc.survey_baseline);
 run;
 quit; *438, 32;
 
 proc export data = fn3
-			outfile = "&norc/fn3_13a_raw_fieldnotes_&datestamp"
-			dbms = xlsx replace; 
+            outfile = "&norc/fn3_13a_raw_fieldnotes_&datestamp"
+            dbms = xlsx replace; 
 run;
 
 *CHECKED COUNTS TO MAKE SURE EACH PRACTICE ID HAD ONE RESPONSE PER MONTH; 
