@@ -1,5 +1,11 @@
 *13a_time format;
 proc format; 
+value encounter_type
+1 = 4
+2 = 5
+3 = 2
+4 = 3
+5 = 5;
 value time_
 1   =   30
 2   =   60
