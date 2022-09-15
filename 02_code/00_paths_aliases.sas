@@ -49,3 +49,5 @@ OPTIONS mprint
 proc format lib = norc;
    value missing .='999';
 run;
+
+%include "C:/Users/wigginki/OneDrive - The University of Colorado Denver/sas/sas_formats/procFreq_pct.sas";

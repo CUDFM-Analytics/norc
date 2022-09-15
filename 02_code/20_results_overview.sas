@@ -1,5 +1,5 @@
 /*
-PROGRAM:   	Make report of output 
+PROGRAM:    Make report of output 
 PURPOSE:    NORC upload
 PROGRAMMER: K Wiggins
 DATE:       08/28/2022
@@ -13,10 +13,10 @@ LAST RAN: 08/28/2022
 * ROOT FOLDER  ---------------------------------------;
 %let root = S:/FM/FM/Data_Management_Team;
 * INCLUDE --------------------------------------------;
-%include "&root/norc/code_folder/00_paths_lets.sas"; 
+%include "&root/norc/02_code/00_paths_aliases.sas"; 
    *has paths and all let statements for project;
-* Macro for data_specs info ;
-%include "C:/Users/wigginki/OneDrive - The University of Colorado Denver/Documents/projects/00_sas_macros/data_specs.sas";
+%include "&code/13a_fn_formats.sas";
+%include "C:/Users/wigginki/OneDrive - The University of Colorado Denver/sas/sas_macros/data_specs.sas";
 
 title 'NORC Upload 08/2022: Practice Survey';
 *Get column names;  
@@ -25,10 +25,11 @@ create table columns as
 select *
 from sashelp.vcolumn 
 where libname = upcase("NORC") and memname IN ("SURVEY_BASELINE"
-												"METRICS_BASELINE"
-												"METRICS_POST"
-												"SBIRT_BASELINE"
-												"SBIRT_POST");
+                                                "METRICS_BASELINE"
+                                                "METRICS_POST"
+                                                "SBIRT_BASELINE"
+                                                "SBIRT_POST"
+                                                "FN_FINAL_UPDATE");
 quit; *200, 18;
 
 proc print data = columns noobs;
@@ -44,11 +45,11 @@ run;
 
 data practice (keep = file practice_id);
 set norc.metrics_baseline
-	norc.metrics_post
-	survey
-	norc.sbirt_baseline
-	norc.sbirt_post
-	indsname=indsname;
+    norc.metrics_post
+    norc.sbirt_baseline
+    norc.sbirt_post
+    norc.fn_final_update
+    indsname=indsname;
 file = indsname;
 run;
 
@@ -65,4 +66,4 @@ run;
 proc print data = norc.survey_baseline;
 run;
 
-	
+    

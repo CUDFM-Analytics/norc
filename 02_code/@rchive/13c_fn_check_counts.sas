@@ -57,16 +57,19 @@ label   session_num_0 = session_num_0
         num_ecounters_3 = "n Phone"
         num_ecounters_4 = "n Email"
         num_ecounters_5 = "n Other";
+
 run; *515, 126;
 
 * Dropping cols and keeping where kickoff_date isn't missing only;
 data fn1;
 set  norc.fn_raw;
-keep sim_id
+keep practice_id
      kickoff_date
      num_ecounters:
      session_num: 
      time: ;
+practice_id = input(sim_id, best12.);
+drop sim_id;
 where kickoff_date is not missing;
 format time: time_.;
 run; *2022/09/14 - 54, 23 
@@ -77,11 +80,10 @@ when session_num_0 missing then 414, 26;
 proc sort data = fn1; by sim_id; run;
 
 proc freq data = fn1; 
-tables sim_id; 
+tables practice_id; 
 run;
 
 * 3355 just put their kick off date in a different session_num?? - maybe they all did even when it wasn't session_1??;
-
 proc print data = fn1;
 where sim_id in ('2429','3355');
 run;
@@ -96,8 +98,7 @@ run;
 * change to numeric so you can use only the practice_id's submitted in baseline? ; 
 data fn2; 
 set  fn1;
-practice_id = input(sim_id, best12.);
-drop sim_id;
+
 run; *54, 23 09/15
 414, 28;
 
@@ -133,6 +134,10 @@ run; *52, 18;
 
 proc print data = fn3;
 run;
+
+proc freq data = fn3;
+tables time:; 
+run;
 * use virtual for all mode, mode_other make 999 (all meetings were virtual);
 data fn4;
 set  fn3;
@@ -156,8 +161,14 @@ if session_num_7 = 1 then ADDITIONAL_TRAINING = 1;
 else ADDITIONAL_TRAINING = 999;
 if session_num_8 = 1 then ADDITIONAL_OTHER = 1;
 else ADDITIONAL_OTHER = 999;
+
+if time_virtual_grp_mtg = . then DURATION = 999;
+else DURATION = time_virtual_grp_mtg time_.;
+NOTES = 999;
 run;
 
+proc contents data = fn4 varnum; 
+run;
 
 data fn_encounters_t;
 set  fn_encounters;

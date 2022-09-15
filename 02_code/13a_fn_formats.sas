@@ -26,8 +26,7 @@ value time_
 17  =   510
 18  =   540
 19  =   570
-20  =   600
-other = 999;
+20  =   600;
 run;
 proc format;
 invalue $date_of_contact
