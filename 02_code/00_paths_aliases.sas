@@ -1,7 +1,7 @@
 
 * FOLDERS --------------------------------------------;
 %let root = S:/FM/FM/Data_Management_Team;
-%let data = &root/raw data; *Sabrina's uploads;
+%let raw  = &root/raw data; *Sabrina's uploads;
 %let norc = &root/norc/03_data;
 %let form = &root/norc/01_background; *template file;
 %let code = &root/norc/02_code;

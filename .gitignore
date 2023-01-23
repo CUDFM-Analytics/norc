@@ -1,5 +1,7 @@
 # Ignore data folders
-04_data/
-03_data/
+04_data/*
+03_data/*
+03_data_raw/*
 05_uploadResults_aug2022/
 *.sas7bdat
+03_data_aug_2022/*
