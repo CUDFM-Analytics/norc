@@ -44,7 +44,7 @@ data metrics1(keep = sim_id
                      m_mat
                      m_referrd);
 set metrics0 ;
-where task_id in ("194","215") and keep_or_delete = "KEEP" and finished = 1;
+where task_id in ("194","215") and keep_or_delete = "KEEP" and finished = "True";
 run; 
 
 data metrics2;
@@ -98,26 +98,26 @@ set    metrics3;
 run;
 
 * Split file by task_id and drop column, save to library 'norc';
-data norc.metrics_baseline (drop=task_id) norc.metrics_post (drop=task_id);
+data out.metrics_baseline (drop=task_id) out.metrics_post (drop=task_id);
 set metrics3;
-if task_id = 194 then output norc.metrics_baseline; 
-if task_id = 215 then output norc.metrics_post;    
+if task_id = 194 then output out.metrics_baseline; 
+if task_id = 215 then output out.metrics_post;    
 run; *44 / 34;
 
 * Export files;
-proc export data = norc.metrics_baseline
-    outfile = "&norc/metrics_baseline_&datestamp"
+proc export data = out.metrics_baseline
+    outfile = "&out/metrics_baseline_&datestamp"
     dbms=xlsx replace;
 run;
 
-proc export data = norc.metrics_post
-    outfile = "&norc/metrics_post_&datestamp"
+proc export data = out.metrics_post
+    outfile = "&out/metrics_post_&datestamp"
     dbms=xlsx replace;
 run;
 
 * delete BAK files created by PROC EXPORT;
-filename bak  "&norc/metrics_post_20220825.xlsx.bak";
-filename bak2 "&norc/metrics_baseline_20220825.xlsx.bak"; 
+filename bak  "&out/metrics_post_20220825.xlsx.bak";
+filename bak2 "&out/metrics_baseline_20220825.xlsx.bak"; 
 
 data _null_;
  rc = fdelete("bak");

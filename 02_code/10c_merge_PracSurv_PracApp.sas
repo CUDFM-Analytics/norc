@@ -25,8 +25,8 @@ proc sql;
 create table survey_app as
 select a.*
     , b.*
-from norc.survey as a
-left join norc.app as b
+from out.survey_20230123 as a
+left join out.app_20230123 as b
 on a.practice_id = b.practice_id; 
 quit; 
 
@@ -34,27 +34,27 @@ quit;
 proc sql;
 select A
 into :order separated by ' '
-from norc.survey_field_order;
+from out.survey_field_order;
 quit;
 
 data survey_app2;
 retain &order.;
-set  survey_app1;
+set  survey_app;
 run;
 
-data norc.survey_baseline;
+data out.survey_baseline_20230123;
 set  survey_app2;
 run; *44;
 
 * Export files;
-proc export data = norc.survey_baseline
-    outfile = "&norc/survey_baseline_&datestamp"
+proc export data = out.survey_baseline_20230123
+    outfile = "&out/survey_baseline_&datestamp"
     dbms=xlsx replace;
 run;
 
 
 * delete BAK files created by PROC EXPORT;
-filename bak "&norc/survey_baseline_20220826.xlsx.bak"; 
+filename bak "&norc/survey_baseline_20230123.xlsx.bak"; 
 
 data _null_;
  rc = fdelete("bak");
@@ -62,8 +62,8 @@ run;
 
 filename bak clear;
 
-proc contents data = norc.survey_baseline;
+proc contents data = out.survey_baseline_20230123;
 run;
 
-proc print data = norc.survey_baseline;
+proc print data = out.survey_baseline_20230123;
 run;

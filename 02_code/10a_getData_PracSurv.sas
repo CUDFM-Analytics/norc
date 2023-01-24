@@ -32,27 +32,36 @@ proc import
         file = "&survey."
         out = survey0
         dbms = csv replace;
-run; *49,69;
+run; 
+*  jan23 = 51, 70 // aug = 49,69;
 
-proc sort data = survey0; 
-by practice_id; 
-run;
+* Remove the incorrect split_id field, keep the correct one so you get the right ones;
+PROC CONTENTS DATA = survey0; RUN; 
+
+DATA survey0;
+SET  survey0 (DROP = prac_entity_split_id);
+RUN;  
+
+PROC SORT DATA = survey0;
+BY split_id_verify; 
+RUN; 
+
+PROC FREQ DATA = survey0;
+TABLES split_id_verify; 
+RUN; * only 1 each yay!; 
+
 
 *Per email thread with Sabrina re: multiple ID's, documented in doc file:;
-data survey0a;
-set  survey0;
-if name = "Aspen Internal Medicine Consultants" then prac_entity_split_id = 3106;
-if name = "Denver Family Medicine" then prac_entity_split_id = 2070;
-if name = "Internal Medical Associates of Lafayette" then prac_entity_split_id = 2601;
-run;
-
-proc print data = survey0a;
-var prac_entity_split_id name; 
-run;
+/*data survey0a;*/
+/*set  survey0;*/
+/*if name = "Aspen Internal Medicine Consultants" then prac_entity_split_id = 3106;*/
+/*if name = "Denver Family Medicine" then prac_entity_split_id = 2070;*/
+/*if name = "Internal Medical Associates of Lafayette" then prac_entity_split_id = 2601;*/
+/*run;*/
 
 proc sql; 
 create table survey1 as 
-select prac_entity_split_id as PRACTICE_ID
+select split_id_verify      as PRACTICE_ID
     , zip                   as ZIPCODE
     , consulted___1         as SURVEY_CONSULT_CLINICIAN
     , consulted___2         as SURVEY_CONSULT_BH
@@ -95,8 +104,8 @@ select prac_entity_split_id as PRACTICE_ID
     , gender_nonbinary      as GENDER_IDENTITY_NB
     , gender_none           as GENDER_IDENTITY_UNKNOWN
     , demog_data            as DATA_SOURCE
-from survey0a;
-quit; *49,43;
+from survey0;
+quit; *;
 
 * Create calculated variables for 'x_collected';
 data survey2;
@@ -119,22 +128,29 @@ run;
 * Recode inpatient care, then drop
     > original: 1) Yes, 0) No clinicians visit patients in hosp, -1) No Hospital-based staff provides 
     > for norc: 1) Yes, 2) No clinicians visit patients in hosp,  3) No Hospital-based staff provides;
-data survey3;
-set  survey2;
-if inpatientcare = -1     then INPATIENT_ADMISSIONS = 3;
-else if inpatientcare = 0 then INPATIENT_ADMISSIONS = 2;
-else if inpatientcare = 1 then INPATIENT_ADMISSIONS = 1;
-else INPATIENT_ADMISSIONS = 999;
-run; *49, 48;
-* original had 34 (-1 --> recode to "3") n=7 (0 --> recoded to "2") and n=5 (1) ;
 
-proc freq data = survey3;
-tables inpatient:;
-run; 
+PROC FREQ 
+DATA   = survey2; 
+TABLES inpatientcare;
+RUN; 
 
-data survey4 (drop=inpatientcare);
-set  survey3;
-run; *49, 47;
+DATA survey3;
+SET  survey2;
+IF inpatientcare = -1     THEN INPATIENT_ADMISSIONS = 3;
+ELSE IF inpatientcare = 0 THEN INPATIENT_ADMISSIONS = 2;
+ELSE IF inpatientcare = 1 THEN INPATIENT_ADMISSIONS = 1;
+ELSE INPATIENT_ADMISSIONS = 999;
+RUN; *49, 48;
+* jan: original had 35                        n=7                            n=6
+* aug: original had 34 (-1 --> recode to "3") n=7 (0 --> recoded to "2") and n=5 (1) ;
+
+PROC FREQ DATA = survey3;
+TABLES inpatient:;
+RUN; * jan now value 1 (n=6), value 2 (n=7) value 3 (n=35) value 999 (n=3);
+
+DATA survey4 (drop=inpatientcare);
+SET  survey3;
+RUN; *49, 47;
 
 /*            * Find instances with >1 practice_id and send to Sabrina Lor;*/
 /*            proc sql; */
@@ -158,13 +174,13 @@ run; *49, 47;
 /*run; * should drop 5 instances to become 44 > actual: 44, 47;*/
 
 *save to library;
-data norc.survey;
+data out.survey_20230123;
 set  survey4;
 run; *44, 47;
 
-proc sort data = norc.survey; by practice_id; run;
+proc sort data = out.survey_20230123; by practice_id; run;
 
-proc freq data = norc.survey;
+proc freq data = out.survey_20230123;
 run;
 
 * Don't need to export: wait until merged with PracticeApp;

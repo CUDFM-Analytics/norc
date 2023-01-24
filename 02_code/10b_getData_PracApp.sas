@@ -21,7 +21,15 @@ proc import
         file = "&application."
         out = app0
         dbms = csv replace;
-run; *174, 23; 
+run; *176, 23; 
+
+PROC CONTENTS DATA = app0;
+RUN; 
+
+PROC FREQ 
+DATA   = app0; 
+TABLES prac_entity_split_id;
+RUN; *jan all singles but 1 missing? ;
 
 proc sql; 
 create table app1 as
@@ -46,22 +54,20 @@ select PRAC_ENTITY_SPLIT_ID AS PRACTICE_ID
      , PCMH
 from app0 
 where fast_application_complete = 2 ;
-quit;
+quit; *still missing a splitID; 
 
-* Get practices that match practice survey;
-*   Create macro list;
-proc sql; 
-select distinct practice_id into :pracid separated by ', '
-    from norc.survey;
-quit; 
+* missing a split id in this one so have to remove that entry for now until it's fixed: ;
+DATA APP1 ( WHERE = ( practice_id ne . ) );
+SET  app1; 
+RUN; *172 records now; 
 
-* Filter based on macro list; 
 proc sql; 
 create table app2 as
     select *
     from app1 
-    where practice_id in (&pracid.);
-quit; *44, 18;  
+    where practice_id in ( SELECT practice_id FROM out.survey_20230123 );
+quit; *jan [51, 19] aug[44, 18]; 
+
 
 * make sure none are dupes;
 proc freq data = app2;
@@ -73,6 +79,6 @@ data app3 (drop=fast_application_complete);
 set  app2;
 run;
 
-data norc.app;
+data out.app_20230123;
 set  app3;
-run; *44, 17;
+run; *jan[51, 18] aug[44, 17];

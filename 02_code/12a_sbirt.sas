@@ -28,7 +28,7 @@ proc import
     out = sbirt0
     dbms = xlsx replace;
     datarow = 3;
-run; *99, 109;
+run; *jan[101, 109], aug[99, 109];
 
 data sbirt1;
 set  sbirt0;
@@ -36,11 +36,12 @@ where keep_or_delete = "KEEP"
 AND 
 task_id in ('193', '201');
 GRANTEE = 'CO';
-run; *88, 110 - dropped 6 entries from keep/delete;
+run; *jan[90, 110]  aug[88, 110 - dropped 6 entries from keep/delete];
 
 proc freq data = sbirt1;
 tables finished task_id sim_id;
-run; *finished n=88 all value of 1 / task_id 193 n=51, 201 n=37;
+run; *finished jan = 90 
+AUG n=88 all value of 1 / task_id 193 n=51, 201 n=37;
 *sim_id all 1 or 2;
 
 proc sql; 
@@ -107,8 +108,8 @@ quit; *88, 56 - will drop task_id later  ;
 * Get order of variables for upload; 
 
 * Have to change template names bc > 32 bytes;
-data norc.template_sbirt (keep=template field extract_comments);
-set  norc.templates;
+data out.template_sbirt (keep=template field extract_comments);
+set  out.templates;
 Field = tranwrd(Field, 'DOCUMENTATIONTOOL_EHRUNSTRUCTURED', 'DOCUMENTATIONTOOL_EHRUNS');
 Field = tranwrd(Field, 'DOCUMENTATIONTOOL_EHRSTANDARDIZED', 'DOCUMENTATIONTOOL_EHRST');
 Field = tranwrd(Field, 'POSITIVE_INDIVIDUAL_PROCESS_GENERAL', 'POSITIVE_INDIV');
@@ -119,7 +120,7 @@ run; *110, 3;
 proc sql noprint;
 select Field
 into :order separated by ' '
-from norc.template_sbirt;
+from out.template_sbirt;
 quit;
 
 * re-order most recent iteration of work.sbirtX to match macro using retain;
@@ -133,27 +134,27 @@ tables _all_*task_id;
 run;
 
 * Split file by task_id and drop column, save to library 'norc';
-data norc.sbirt_baseline (drop=task_id) norc.sbirt_post (drop=task_id);
+data out.sbirt_baseline (drop=task_id) out.sbirt_post (drop=task_id);
 set sbirt3;
-if task_id = 193 then output norc.sbirt_baseline; 
-if task_id = 201 then output norc.sbirt_post;  
+if task_id = 193 then output out.sbirt_baseline; 
+if task_id = 201 then output out.sbirt_post;  
 run; *51,55 / 37,55;
 
 * Export files;
-proc export data = norc.sbirt_baseline
-  outfile = "&norc/sbirt_baseline_&datestamp"
+proc export data = out.sbirt_baseline
+  outfile = "&out/sbirt_baseline_&datestamp"
   dbms=xlsx replace;
 run;
 
-proc export data = norc.sbirt_post
-  outfile = "&norc/sbirt_post_&datestamp"
+proc export data = out.sbirt_post
+  outfile = "&out/sbirt_post_&datestamp"
   dbms=xlsx replace;
 run;
 
 
 * delete BAK files created by PROC EXPORT;
-filename bak  "&norc/sbirt_post_20220828.xlsx.bak";
-filename bak2 "&norc/sbirt_baseline_20220828.xlsx.bak"; 
+filename bak  "&out/sbirt_post_20220828.xlsx.bak";
+filename bak2 "&out/sbirt_baseline_20220828.xlsx.bak"; 
 
 data _null_;
  rc = fdelete("bak");
