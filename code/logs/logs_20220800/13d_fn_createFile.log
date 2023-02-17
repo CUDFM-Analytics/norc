@@ -1,0 +1,253 @@
+632  /*
+633  PROGRAM:        NORC upload
+634  PURPOSE:        Intervention Tracker / Field Note
+635  PROGRAMMER:     K Wiggins
+636  DATE:           08/28/2022
+637  PROCESS:        Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
+638  NOTES:          Issues resolved from 13c_ file (things exported / sent to Sabrina to check);
+639                  This file based on responses from questions in there;
+640
+641  ----------------------------------------------------------------------------------------------
+641! -------
+642  CHANGE LOG
+643  Date    By      Purpose
+644  09/09   KTW     Updated paths / global variables
+645                  re-ran all code
+646  */
+647
+648  * Set global variables and function calls;
+649  * ROOT FOLDER  ---------------------------------------;
+650  %let root = S:/FM/FM/Data_Management_Team;
+651  * INCLUDE --------------------------------------------;
+652  %include "&root/norc/02_code/00_paths_aliases.sas";
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/01_background
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/01_background
+SYMBOLGEN:  Macro variable SURVTEMPLATE resolves to
+            S:/FM/FM/Data_Management_Team/norc/01_background/survey_template_order.xlsx
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+
+
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220915
+20220915
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/03_data
+NOTE: Libref NORC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: S:\FM\FM\Data_Management_Team\norc\03_data
+NOTE: Format MISSING is already on the library NORC.FORMATS.
+NOTE: Format MISSING has been written to NORC.FORMATS.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.01 seconds
+
+
+NOTE: Format PCTFMT is already on the library WORK.FORMATS.
+NOTE: Format PCTFMT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+WARNING: Could not restore referenced object: Base.Freq.Expected.
+WARNING: Could not find parent template: Base.Freq.Expected.
+WARNING: Could not restore referenced object: Base.Freq.Deviation.
+WARNING: Could not find parent template: Base.Freq.Deviation.
+WARNING: Could not restore referenced object: Base.Freq.PearsonResidual.
+WARNING: Could not find parent template: Base.Freq.PearsonResidual.
+WARNING: Could not restore referenced object: Base.Freq.CellChiSquare.
+WARNING: Could not find parent template: Base.Freq.CellChiSquare.
+NOTE: Overwriting existing template/link: Base.Freq.OneWayList
+NOTE: TABLE 'Base.Freq.OneWayList' has been saved to: SASUSER.TEMPLAT
+NOTE: PROCEDURE TEMPLATE used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+SYMBOLGEN:  Macro variable CODE resolves to S:/FM/FM/Data_Management_Team/norc/02_code
+729     *has paths and all let statements for project;
+730  %include "&code/13a_formats_fieldnotes.sas";
+NOTE: Format ENCOUNTER_TYPE is already on the library WORK.FORMATS.
+NOTE: Format ENCOUNTER_TYPE has been output.
+NOTE: Format TIME_ is already on the library WORK.FORMATS.
+NOTE: Format TIME_ has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+NOTE: Informat $DATE_OF_CONTACT is already on the library WORK.FORMATS.
+NOTE: Informat $DATE_OF_CONTACT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+
+803
+804  * Dropping cols and keeping where kickoff_date isn't missing only;
+805  data norc.fn_final
+806           (KEEP= PRACTICE_ID
+807                  DATE_OF_CONTACT
+808                  GRANTEE
+809                  MODE
+810                  MODE_OTHER
+811                  DURATION
+812                  PRIMARY_PURPOSE
+813                  PRIMARY_PURPOSE_OTHER
+814                  ADDITIONAL_KICKOFF
+815                  ADDITIONAL_ADMIN
+816                  ADDITIONAL_WORKFLOW
+817                  ADDITIONAL_HIT
+818                  ADDITIONAL_QUALITY
+819                  ADDITIONAL_ENGAGEMENT
+820                  ADDITIONAL_TRAINING
+821                  ADDITIONAL_OTHER
+822                  NOTES
+823                  );
+824  RETAIN  GRANTEE
+825          PRACTICE_ID
+826          DATE_OF_CONTACT
+827          MODE
+828          MODE_OTHER
+829          DURATION
+830          PRIMARY_PURPOSE
+831          PRIMARY_PURPOSE_OTHER
+832          ADDITIONAL_KICKOFF
+833          ADDITIONAL_ADMIN
+834          ADDITIONAL_WORKFLOW
+835          ADDITIONAL_HIT
+836          ADDITIONAL_QUALITY
+837          ADDITIONAL_ENGAGEMENT
+838          ADDITIONAL_TRAINING
+839          ADDITIONAL_OTHER
+840          NOTES
+841          ;
+842  set  norc.fn_raw;
+843  where kickoff_date is not missing;
+844
+845  * Add columns needed;
+846  GRANTEE                 = "CO";
+847  MODE                    = 1;                * using kickoff_date only so all mode is virtual;
+848  MODE_OTHER              = 999;              * no kickoff_date meetings were other;
+849  DATE_OF_CONTACT         = kickoff_date;     * per Dionisia only reporting this;
+850  PRIMARY_PURPOSE         = 1;                * kickoff date is 1;
+851  PRIMARY_PURPOSE_OTHER   = 999;
+852  ADDITIONAL_KICKOFF      = 999;              * since this is kickoff, won't have additional;
+853  PRACTICE_ID             = input(sim_id, best12.);   * make numeric to merge / use only
+853! practiceid's in baseline;
+854  NOTES                   = 999;
+855
+856  format DURATION time_.;
+857
+858  if practice_id = '2429' and num_ecounters_4 = 2 then delete;    * was duplicate (per Sabrina,
+858! 13c_);
+859  if practice_id = '3355' and num_ecounters_4 = 3 then delete;    * was duplicate (per Sabrina,
+859! 13c_);
+860
+861  *create cols from variables;
+862  if session_num_2 = 1 then ADDITIONAL_ADMIN = 1;
+863      else ADDITIONAL_ADMIN = 999;
+864  if session_num_3 = 1 then ADDITIONAL_WORKFLOW = 1;
+865      else ADDITIONAL_WORKFLOW = 999;
+866  if session_num_4 = 1 then ADDITIONAL_HIT = 1;
+867      else ADDITIONAL_HIT = 999;
+868  if session_num_5 = 1 then ADDITIONAL_QUALITY = 1;
+869      else ADDITIONAL_QUALITY = 999;
+870  if session_num_6 = 1 then ADDITIONAL_ENGAGEMENT = 1;
+871      else ADDITIONAL_ENGAGEMENT = 999;
+872  if session_num_7 = 1 then ADDITIONAL_TRAINING = 1;
+873      else ADDITIONAL_TRAINING = 999;
+874  if session_num_8 = 1 then ADDITIONAL_OTHER = 1;
+875      else ADDITIONAL_OTHER = 999;
+876
+877  if time_virtual_grp_mtg = . then DURATION = 999;
+878      else DURATION = time_virtual_grp_mtg;   * using only the duration for the primary_purpose
+878! (kickoff);
+879  run;
+
+NOTE: Character values have been converted to numeric values at the places given by:
+      (Line):(Column).
+      858:18   859:18   862:4    864:4    866:4    868:4    870:4    872:4    874:4
+NOTE: There were 54 observations read from the data set NORC.FN_RAW.
+      WHERE kickoff_date is not null;
+NOTE: The data set NORC.FN_FINAL has 52 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.89 seconds
+      cpu time            0.07 seconds
+
+
+879!      *09/15: 52, 17;
+
+880
+881  * Export;
+882  proc export data = norc.fn_final
+883    outfile = "&norc/InterventionTracker_&datestamp"
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/03_data
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220915
+884    dbms=xlsx replace;
+885  run;
+
+NOTE: The export data set has 52 observations and 17 variables.
+NOTE: "S:\FM\FM\Data_Management_Team\norc\03_data\InterventionTracker_20220915.xlsx" file was
+      successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.70 seconds
+      cpu time            0.07 seconds
+
+
+886
+887  * ----- SECOND ATTEMPT: UPLOAD -------------------;
+888  * wouldn't upload with practice 2224;
+889  data norc.fn_final_update;
+890  set  norc.fn_final;
+891  if practice_id = "2224" then delete;
+892  run;
+
+NOTE: Character values have been converted to numeric values at the places given by:
+      (Line):(Column).
+      891:18
+NOTE: There were 52 observations read from the data set NORC.FN_FINAL.
+NOTE: The data set NORC.FN_FINAL_UPDATE has 51 observations and 17 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.40 seconds
+      cpu time            0.03 seconds
+
+
+892!      *51, 17;
+893
+894  proc export data = norc.fn_final_update
+895    outfile = "&norc/InterventionTracker_attempt2_&datestamp"
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/03_data
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220915
+896    dbms=xlsx replace;
+897  run;
+
+NOTE: The export data set has 51 observations and 17 variables.
+NOTE: "S:\FM\FM\Data_Management_Team\norc\03_data\InterventionTracker_attempt2_20220915.xlsx" file
+      was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.76 seconds
+      cpu time            0.07 seconds
+
+

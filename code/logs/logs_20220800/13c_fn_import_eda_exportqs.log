@@ -1,0 +1,343 @@
+1913  /*
+1914  PROGRAM:        NORC upload
+1915  PURPOSE:        Intervention Tracker / Field Note
+1916  PROGRAMMER:     K Wiggins
+1917  DATE:           08/22
+1918  PROCESS:        Sabrina Lor exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
+1919  NOTES:          Can't find old file (jan upload of fieldnote), DD said no code - she's out
+1919! this week so do my best
+1920                  See readme_norc_aug_20220800.docx for details > Section FIELDNOTES
+1921
+1922                  Per Dionisia email 9/13, only include entries with kick off date -
+1923
+1924                  copied 13b_getData_fieldnotes to this and removed what was no longer needed,
+1924! but want to keep 13b just in case
+1925
+1926  ---------------------------------------------------------------------------------------------
+1926! --------
+1927  CHANGE LOG
+1928  Date    By      Purpose
+1929  09/09   KTW     Updated paths / global variables
+1930  09/15   KTW     Refactored, reran (changed fn ds names added #'s
+1931  */
+1932
+1933  * Set global variables and function calls;
+1934  * ROOT FOLDER  ---------------------------------------;
+1935  %let root = S:/FM/FM/Data_Management_Team;
+1936  * INCLUDE --------------------------------------------;
+1937  %include "&root/norc/02_code/00_paths_aliases.sas";
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/01_background
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/01_background
+SYMBOLGEN:  Macro variable SURVTEMPLATE resolves to
+            S:/FM/FM/Data_Management_Team/norc/01_background/survey_template_order.xlsx
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+
+
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220915
+20220915
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/03_data
+NOTE: Libref NORC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: S:\FM\FM\Data_Management_Team\norc\03_data
+NOTE: Format MISSING is already on the library NORC.FORMATS.
+NOTE: Format MISSING has been written to NORC.FORMATS.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.11 seconds
+      cpu time            0.03 seconds
+
+
+NOTE: Format PCTFMT is already on the library WORK.FORMATS.
+NOTE: Format PCTFMT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+NOTE: Writing HTML Body file: sashtml3.htm
+WARNING: Could not restore referenced object: Base.Freq.CellChiSquare.
+WARNING: Could not find parent template: Base.Freq.CellChiSquare.
+WARNING: Could not restore referenced object: Base.Freq.PearsonResidual.
+WARNING: Could not find parent template: Base.Freq.PearsonResidual.
+WARNING: Could not restore referenced object: Base.Freq.Deviation.
+WARNING: Could not find parent template: Base.Freq.Deviation.
+WARNING: Could not restore referenced object: Base.Freq.Expected.
+WARNING: Could not find parent template: Base.Freq.Expected.
+NOTE: Overwriting existing template/link: Base.Freq.OneWayList
+NOTE: TABLE 'Base.Freq.OneWayList' has been saved to: SASUSER.TEMPLAT
+NOTE: PROCEDURE TEMPLATE used (Total process time):
+      real time           0.23 seconds
+      cpu time            0.10 seconds
+
+
+SYMBOLGEN:  Macro variable CODE resolves to S:/FM/FM/Data_Management_Team/norc/02_code
+2014     *has paths and all let statements for project;
+2015  %include "&code/13a_fn_formats.sas";
+NOTE: Format ENCOUNTER_TYPE is already on the library WORK.FORMATS.
+NOTE: Format ENCOUNTER_TYPE has been output.
+NOTE: Format TIME_ is already on the library WORK.FORMATS.
+NOTE: Format TIME_ has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+
+
+NOTE: Informat $DATE_OF_CONTACT is already on the library WORK.FORMATS.
+NOTE: Informat $DATE_OF_CONTACT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+
+2087
+2088  proc import
+2089      file = "&fieldnote."
+SYMBOLGEN:  Macro variable FIELDNOTE resolves to S:/FM/FM/Data_Management_Team/raw
+            data/FASTFieldnote_raw_08222022.xlsx
+2090      out = fn00
+2091      dbms = xlsx replace;
+2092      datarow = 3;
+2093  run;
+
+NOTE:    Variable Name Change.  Duration (in seconds) -> Duration__in_seconds_
+NOTE:    Variable Name Change.  RE1_First Click -> RE1_First_Click
+NOTE:    Variable Name Change.  RE1_Last Click -> RE1_Last_Click
+NOTE:    Variable Name Change.  RE1_Page Submit -> RE1_Page_Submit
+NOTE:    Variable Name Change.  RE1_Click Count -> RE1_Click_Count
+NOTE:    Variable Name Change.  Browser_Operating System -> Browser_Operating_System
+NOTE:    Variable Name Change.  no_encounters_reason_1_-66 -> no_encounters_reason_1__66
+NOTE:    Variable Name Change.  participants_-66 -> participants__66
+NOTE:    Variable Name Change.  Q88_First Click -> Q88_First_Click
+NOTE:    Variable Name Change.  Q88_Last Click -> Q88_Last_Click
+NOTE:    Variable Name Change.  Q88_Page Submit -> Q88_Page_Submit
+NOTE:    Variable Name Change.  Q88_Click Count -> Q88_Click_Count
+NOTE:    Variable Name Change.  RE5_First Click -> RE5_First_Click
+NOTE:    Variable Name Change.  RE5_Last Click -> RE5_Last_Click
+NOTE:    Variable Name Change.  RE5_Page Submit -> RE5_Page_Submit
+NOTE:    Variable Name Change.  RE5_Click Count -> RE5_Click_Count
+NOTE:    Variable Name Change.  Qretired1.20 -> Qretired1_20
+NOTE:    Variable Name Change.  Qretired1.21 -> Qretired1_21
+NOTE:    Variable Name Change.  Qretired1.25 -> Qretired1_25
+NOTE:    Variable Name Change.  Qretired1.26 -> Qretired1_26
+NOTE:    Variable Name Change.  Qretired1.27 -> Qretired1_27
+NOTE:    Variable Name Change.  Qretired3.4 -> Qretired3_4
+NOTE:    Variable Name Change.  KEEP OR DELETE -> KEEP_OR_DELETE
+NOTE: One or more variables were converted because the data type is not supported by the V9
+      engine. For more details, run with options MSGLEVEL=I.
+WARNING: Some character data was lost during transcoding in column: desc_concern at obs 231.
+WARNING: Some character data was lost during transcoding in column: desc_concern at obs 232.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 257.
+WARNING: Some character data was lost during transcoding in column: desc_sust at obs 297.
+WARNING: Some character data was lost during transcoding in column: desc_other at obs 297.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 310.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 311.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 401.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 402.
+WARNING: Some character data was lost during transcoding in column: FFN_elearning at obs 402.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 437.
+WARNING: Some character data was lost during transcoding in column: FFN_sigimprov_notes at obs 438.
+WARNING: Some character data was lost during transcoding in column: FFN_contributions at obs 450.
+NOTE: The import data set has 515 observations and 126 variables.
+NOTE: WORK.FN00 data set was successfully created.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.92 seconds
+      cpu time            0.45 seconds
+
+
+2093!      *515, 126;
+2094
+2095  * Add labels to saved lib / raw import just in case;
+2096  data    norc.fn00_raw;
+2097  set     fn0;
+2098  label   session_num_0 = session_num_0
+2099          session_num_1   = purpose_kickoff
+2100          session_num_2   = Purpose_admin
+2101          session_num_3   = purpose_workflow
+2102          session_num_4   = purpose_data_HIT
+2103          session_num_5   = purpose_QI
+2104          session_num_6   = purpose_engagement
+2105          session_num_7   = purpose_training
+2106          session_num_8   = purpose_other
+2107          num_ecounters_1 = "n Virtual QI Team Meeting(s)"
+2108          num_ecounters_2 = "n Virtual meetings Other"
+2109          num_ecounters_3 = "n Phone"
+2110          num_ecounters_4 = "n Email"
+2111          num_ecounters_5 = "n Other";
+2112
+2113  run;
+
+NOTE: There were 515 observations read from the data set WORK.FN0.
+NOTE: The data set NORC.FN00_RAW has 515 observations and 126 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.84 seconds
+      cpu time            0.04 seconds
+
+
+2113!      *515, 126;
+2114
+2115  proc freq data = norc.fn00_raw;
+2116  run;
+
+WARNING: Could not restore referenced object: Base.Freq.Expected.
+WARNING: Could not find parent template: Base.Freq.Expected.
+WARNING: Could not restore referenced object: Base.Freq.Deviation.
+WARNING: Could not find parent template: Base.Freq.Deviation.
+WARNING: Could not restore referenced object: Base.Freq.PearsonResidual.
+WARNING: Could not find parent template: Base.Freq.PearsonResidual.
+WARNING: Could not restore referenced object: Base.Freq.CellChiSquare.
+WARNING: Could not find parent template: Base.Freq.CellChiSquare.
+NOTE: There were 515 observations read from the data set NORC.FN00_RAW.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           1.42 seconds
+      cpu time            0.50 seconds
+
+
+2117
+2118  proc contents data = norc.fn00_raw;
+2119  run;
+
+NOTE: PROCEDURE CONTENTS used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+
+
+2120  * Dropping cols and keeping where kickoff_date isn't missing only;
+2121  data fn01;
+2122  set  norc.fn00_raw;
+2123  keep practice_id
+2124       kickoff_date
+2125       num_ecounters:
+2126       session_num:
+2127       time: ;
+2128  practice_id = input(sim_id, best12.);
+2129  drop sim_id;
+2130  where kickoff_date is not missing;
+2131  format time: time_.;
+2132  run;
+
+NOTE: There were 54 observations read from the data set NORC.FN00_RAW.
+      WHERE kickoff_date is not null;
+NOTE: The data set WORK.FN01 has 54 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.03 seconds
+
+
+2132!      *2022/09/14 - 54, 23
+
+2133  08/30: 514, 28 when including session_num_0
+      --
+      180
+ERROR 180-322: Statement is not valid or it is used out of proper order.
+
+2134  when session_num_0 missing then 414, 26;
+
+2135  proc sort data = fn01; by sim_id; run;
+ERROR: Variable SIM_ID not found.
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+2136
+
+
+2137  proc freq data = fn01;
+2138  tables practice_id;
+2139  run;
+
+WARNING: Could not restore referenced object: Base.Freq.Expected.
+WARNING: Could not find parent template: Base.Freq.Expected.
+WARNING: Could not restore referenced object: Base.Freq.Deviation.
+WARNING: Could not find parent template: Base.Freq.Deviation.
+WARNING: Could not restore referenced object: Base.Freq.PearsonResidual.
+WARNING: Could not find parent template: Base.Freq.PearsonResidual.
+WARNING: Could not restore referenced object: Base.Freq.CellChiSquare.
+WARNING: Could not find parent template: Base.Freq.CellChiSquare.
+NOTE: There were 54 observations read from the data set WORK.FN01.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.02 seconds
+      cpu time            0.01 seconds
+
+
+2140
+2141  * 3355 just put their kick off date in a different session_num?? - maybe they all did even
+2141! when it wasn't session_1??;
+2142  proc print data = fn1;
+2143  where sim_id in ('2429','3355');
+ERROR: Variable sim_id is not on file WORK.FN1.
+2144  run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+
+
+2145  data norc.fn01_dupes;
+2146  set  fn01;
+2147  where sim_id in ('2429','3355');
+ERROR: Variable sim_id is not on file WORK.FN01.
+2148  run;
+
+NOTE: The SAS System stopped processing this step because of errors.
+WARNING: The data set NORC.FN01_DUPES may be incomplete.  When this step was stopped there were 0
+         observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.30 seconds
+      cpu time            0.06 seconds
+
+
+2149  data norc.fn02_id_check_baseline;
+2150  set fn01;
+2151  if _n_ = 1
+2152  then do;
+2153    declare hash d1 (dataset:"norc.survey_baseline");
+2154    d1.definekey("practice_id");
+2155    d1.definedone();
+2156  end;
+2157  flag = (d1.check() = 0);
+2158  run;
+
+NOTE: There were 49 observations read from the data set NORC.SURVEY_BASELINE.
+NOTE: There were 54 observations read from the data set WORK.FN01.
+NOTE: The data set NORC.FN02_ID_CHECK_BASELINE has 54 observations and 24 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.45 seconds
+      cpu time            0.06 seconds
+
+
+2159  proc print data = norc.fn02_id_check_baseline;
+2160  where flag = 0;
+2161  run;
+
+NOTE: There were 6 observations read from the data set NORC.FN02_ID_CHECK_BASELINE.
+      WHERE flag=0;
+NOTE: PROCEDURE PRINT used (Total process time):
+      real time           0.05 seconds
+      cpu time            0.01 seconds
+
+

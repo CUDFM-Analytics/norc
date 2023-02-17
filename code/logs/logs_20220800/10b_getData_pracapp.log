@@ -1,0 +1,292 @@
+1735  /*
+1736  PROGRAM:
+1737  PURPOSE:         NORC upload
+1738  PROGRAMMER:      K Wiggins
+1739  DATE:            08/25/2022
+1740  PROCESS:         Export from redcap report
+1741  NOTES:
+1742  ------------------------------------------------------------------------------------------------
+1742! -----
+1743
+1744  LAST RAN: 08/26/2022
+1745  */
+1746
+1747  * Set global variables and function calls;
+1748  * ROOT FOLDER  ---------------------------------------;
+1749  %let root = S:/FM/FM/Data_Management_Team;
+1750  * INCLUDE --------------------------------------------;
+1751  %include "&root/norc/code_folder/00_paths_lets.sas";
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable ROOT resolves to S:/FM/FM/Data_Management_Team
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/background
+SYMBOLGEN:  Macro variable FORM resolves to S:/FM/FM/Data_Management_Team/norc/background
+SYMBOLGEN:  Macro variable SURVTEMPLATE resolves to
+            S:/FM/FM/Data_Management_Team/norc/background/survey_template_order.xlsx
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable DATA resolves to S:/FM/FM/Data_Management_Team/raw data
+SYMBOLGEN:  Macro variable ONEDRIVE resolves to C:/Users/wigginki/OneDrive - The University of
+            Colorado Denver/Documents/projects
+NOTE: Format PCTFMT is already on the library WORK.FORMATS.
+NOTE: Format PCTFMT has been output.
+
+NOTE: PROCEDURE FORMAT used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+
+
+NOTE: Overwriting existing template/link: Base.Freq.OneWayList
+NOTE: TABLE 'Base.Freq.OneWayList' has been saved to: SASUSER.TEMPLAT
+NOTE: PROCEDURE TEMPLATE used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+
+
+
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+
+
+SYMBOLGEN:  Macro variable DATESTAMP resolves to 20220826
+20220826
+SYMBOLGEN:  Macro variable NORC resolves to S:/FM/FM/Data_Management_Team/norc/results
+NOTE: Libref NORC was successfully assigned as follows:
+      Engine:        V9
+      Physical Name: S:\FM\FM\Data_Management_Team\norc\results
+1823           *has paths and all let statements for project;
+1824
+1825  proc import
+1826          file = "&application."
+SYMBOLGEN:  Macro variable APPLICATION resolves to S:/FM/FM/Data_Management_Team/raw
+            data/FASTApplication_raw_08222022.csv
+1827          out = app0
+1828          dbms = csv replace;
+1829  run;
+
+1829!      *174, 23;
+1830   /**********************************************************************
+1831   *   PRODUCT:   SAS
+1832   *   VERSION:   9.4
+1833   *   CREATOR:   External File Interface
+1834   *   DATE:      26AUG22
+1835   *   DESC:      Generated SAS Datastep Code
+1836   *   TEMPLATE SOURCE:  (None Specified.)
+1837   ***********************************************************************/
+1838      data WORK.APP0    ;
+1839      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+1840      infile 'S:/FM/FM/Data_Management_Team/raw data/FASTApplication_raw_08222022.csv' delimiter =
+1840!  ',' MISSOVER DSD lrecl=32767 firstobs=2 ;
+1841         informat pcmh best32. ;
+1842         informat payermix_medicare best32. ;
+1843         informat payermix_medicaid best32. ;
+1844         informat payermix_dual best32. ;
+1845         informat payermix_private best32. ;
+1846         informat payermix_other best32. ;
+1847         informat payermix_noins_selfpay best32. ;
+1848         informat payermix_total best32. ;
+1849         informat fast_pto best32. ;
+1850         informat fast_application_complete best32. ;
+1851         informat type___1 best32. ;
+1852         informat type___2 best32. ;
+1853         informat type___3 best32. ;
+1854         informat type___4 best32. ;
+1855         informat type___5 best32. ;
+1856         informat type___6 best32. ;
+1857         informat type___7 best32. ;
+1858         informat type___8 best32. ;
+1859         informat type___9 best32. ;
+1860         informat type___10 best32. ;
+1861         informat type____777 best32. ;
+1862         informat record_id best32. ;
+1863         informat prac_entity_split_id best32. ;
+1864         format pcmh best12. ;
+1865         format payermix_medicare best12. ;
+1866         format payermix_medicaid best12. ;
+1867         format payermix_dual best12. ;
+1868         format payermix_private best12. ;
+1869         format payermix_other best12. ;
+1870         format payermix_noins_selfpay best12. ;
+1871         format payermix_total best12. ;
+1872         format fast_pto best12. ;
+1873         format fast_application_complete best12. ;
+1874         format type___1 best12. ;
+1875         format type___2 best12. ;
+1876         format type___3 best12. ;
+1877         format type___4 best12. ;
+1878         format type___5 best12. ;
+1879         format type___6 best12. ;
+1880         format type___7 best12. ;
+1881         format type___8 best12. ;
+1882         format type___9 best12. ;
+1883         format type___10 best12. ;
+1884         format type____777 best12. ;
+1885         format record_id best12. ;
+1886         format prac_entity_split_id best12. ;
+1887      input
+1888                  pcmh
+1889                  payermix_medicare
+1890                  payermix_medicaid
+1891                  payermix_dual
+1892                  payermix_private
+1893                  payermix_other
+1894                  payermix_noins_selfpay
+1895                  payermix_total
+1896                  fast_pto
+1897                  fast_application_complete
+1898                  type___1
+1899                  type___2
+1900                  type___3
+1901                  type___4
+1902                  type___5
+1903                  type___6
+1904                  type___7
+1905                  type___8
+1906                  type___9
+1907                  type___10
+1908                  type____777
+1909                  record_id
+1910                  prac_entity_split_id
+1911      ;
+1912      if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
+1913      run;
+
+NOTE: The infile 'S:/FM/FM/Data_Management_Team/raw data/FASTApplication_raw_08222022.csv' is:
+      Filename=S:\FM\FM\Data_Management_Team\raw data\FASTApplication_raw_08222022.csv,
+      RECFM=V,LRECL=32767,File Size (bytes)=10123,
+      Last Modified=26Aug2022:09:57:28,
+      Create Time=26Aug2022:09:57:28
+
+NOTE: 174 records were read from the infile 'S:/FM/FM/Data_Management_Team/raw
+      data/FASTApplication_raw_08222022.csv'.
+      The minimum record length was 40.
+      The maximum record length was 75.
+NOTE: The data set WORK.APP0 has 174 observations and 23 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.17 seconds
+      cpu time            0.17 seconds
+
+
+174 rows created in WORK.APP0 from S:/FM/FM/Data_Management_Team/raw
+data/FASTApplication_raw_08222022.csv.
+
+
+
+NOTE: WORK.APP0 data set was successfully created.
+NOTE: The data set WORK.APP0 has 174 observations and 23 variables.
+NOTE: PROCEDURE IMPORT used (Total process time):
+      real time           0.64 seconds
+      cpu time            0.64 seconds
+
+
+1914
+1915  proc sql;
+1916  create table app1 as
+1917  select PRAC_ENTITY_SPLIT_ID AS PRACTICE_ID
+1918       , PAYERMIX_MEDICARE as PAYER_PERCENTAGE_MEDICARE
+1919       , PAYERMIX_MEDICAID as PAYER_PERCENTAGE_MEDICAID
+1920       , PAYERMIX_DUAL as PAYER_PERCENTAGE_DUAL
+1921       , PAYERMIX_PRIVATE as PAYER_PERCENTAGE_PRIVATE
+1922       , PAYERMIX_NOINS_SELFPAY as PAYER_PERCENTAGE_NO_INSURANCE
+1923       , PAYERMIX_OTHER as PAYER_PERCENTAGE_OTHER
+1924       , type___1 as PRACTICE_OWNERSHIP_SOLO_GROUP
+1925       , type___2 as PRACTICE_OWNERSHIP_HOSPITAL
+1926       , type___3 as PRACTICE_OWNERSHIP_HMO
+1927       , type___4 as PRACTICE_OWNERSHIP_FQHC
+1928       , type___6 as PRACTICE_OWNERSHIP_NONFED_GVMT
+1929       , type___7 as PRACTICE_OWNERSHIP_ACADEMIC
+1930       , type___8 as PRACTICE_OWNERSHIP_FEDERAL
+1931       , type___9 as PRACTICE_OWNERSHIP_RURAL
+1932       , type___10 as PRACTICE_OWNERSHIP_IHS
+1933       , type____777 as PRACTICE_OWNERSHIP_OTHER
+1934       , FAST_APPLICATION_COMPLETE
+1935       , PCMH
+1936  from app0
+1937  where fast_application_complete = 2 ;
+NOTE: Table WORK.APP1 created, with 171 rows and 19 columns.
+
+1938  quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+
+
+1939
+1940  * Get practices that match practice survey;
+1941  *   Create macro list;
+1942  proc sql;
+1943  select distinct practice_id into :pracid separated by ', '
+1944      from norc.survey;
+1945  quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.06 seconds
+
+
+1946
+1947  * Filter based on macro list;
+1948  proc sql;
+1949  create table app2 as
+1950      select *
+1951      from app1
+1952      where practice_id in (&pracid.);
+SYMBOLGEN:  Macro variable PRACID resolves to 30, 35, 100, 122, 140, 141, 143, 148, 153, 2067, 2070,
+            2117, 2120, 2123, 2133, 2134, 2135, 2164, 2226, 2359, 2415, 2429, 2576, 2586, 2588, 2590,
+            2595, 2599, 2600, 2601, 2638, 2640, 2645, 3106, 3247, 3256, 3321, 3349, 3355, 3377, 3397,
+            3430, 3487, 3488, 3490, 3492, 3493, 3498, 3499
+NOTE: Table WORK.APP2 created, with 49 rows and 19 columns.
+
+1953  quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.04 seconds
+      cpu time            0.04 seconds
+
+
+1953!       *44, 18;
+1954
+1955  * make sure none are dupes;
+1956  proc freq data = app2;
+1957  tables practice_id;
+1958  run;
+
+NOTE: There were 49 observations read from the data set WORK.APP2.
+NOTE: PROCEDURE FREQ used (Total process time):
+      real time           0.10 seconds
+      cpu time            0.06 seconds
+
+
+1959
+1960  *drop vars;
+1961  data app3 (drop=fast_application_complete);
+1962  set  app2;
+1963  run;
+
+NOTE: There were 49 observations read from the data set WORK.APP2.
+NOTE: The data set WORK.APP3 has 49 observations and 18 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.03 seconds
+
+
+1964
+1965  data norc.app;
+1966  set  app3;
+1967  run;
+
+NOTE: There were 49 observations read from the data set WORK.APP3.
+NOTE: The data set NORC.APP has 49 observations and 18 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.09 seconds
+      cpu time            0.04 seconds
+
+
+1967!      *44, 17;
+
