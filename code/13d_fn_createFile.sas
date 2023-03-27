@@ -101,12 +101,12 @@ proc export data = out.fn_final_update
   dbms=xlsx replace;
 run;
 
-
 * Get list of variable names for contents, means, frequency export; 
 %put List of Variables=%mf_getvarlist(out.survey_baseline_20230123);
 
 * Run macro for univariate data (globals);
 %summary(ds=out.fn_final,out=fn_summary);
+
 
 * ==== EXPORT CONTENTS, FREQUENCIES, MEANS ===================================================;
 
