@@ -3,9 +3,6 @@
  PROGRAMMER    : KTW
  DATE RAN      : 2023-02-15
  PURPOSE       : Get templates and survey_fields
-
-* global paths, settings  ---------------------------;
-%INCLUDE "V:/Data_Management_Team/norc/code/00_globals_20230300.sas"; 
 ***********************************************************************************************;
 
 proc import 

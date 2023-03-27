@@ -9,21 +9,22 @@ NOTES:          - if task_id in (193, 201) and Finished = 1 / Keep_or_delete = k
                 - template requires 55 columns;
 -----------------------------------------------------------------------------------------------------*/
 * ==== GLOBAL PATHS/ ALIASES  ===============================================================;
-%INCLUDE "V:/Data_Management_Team/norc/code/00_globals_20230200.sas"; 
+%INCLUDE "V:/Data_Management_Team/norc/code/00_config_20230320.sas"; 
+%INCLUDE "&import./sbirt.sas";
 
 * ==== IMPORT  ===============================================================================;
 * Imported via wizard - idk it isn't working to get 999's on the char fields; 
 data sbirt1;
 set  sbirt0;
-where recordeddate ne . 
+where recordeddate ne '' 
 AND   task_id in ('193', '201')
 AND   keep_or_delete = "KEEP";
 GRANTEE = 'CO';
-run; *[93, 110]
+run; *[94, 77]
  *  aug[88, 110 - dropped 6 entries from keep/delete];
 
 proc freq data = sbirt1;
-tables finished task_id sim_id;
+tables task_id sim_id;
 run; * feb = 93
 finished jan = 90 
 AUG n=88 all value of 1 / task_id 193 n=51, 201 n=37;
@@ -87,8 +88,9 @@ select GRANTEE
         , support_7 as SUPPORT_RX
         , support_8 as SUPPORT_MAT
         , support__66_TEXT as SUPPORT_OTHER
-from sbirt1;
-quit; *feb 94, 56 // jan 88, 56 - will drop task_id later  ; 
+from sbirt1
+WHERE sim_id IN (SELECT txt_prac_entity_split_id FROM out.inclusion);
+quit; *mar 77 with where clause // feb 94, 56 // jan 88, 56 - will drop task_id later  ; 
 
 * Get order of variables for upload; 
 
@@ -99,7 +101,7 @@ Field = tranwrd(Field, 'DOCUMENTATIONTOOL_EHRUNSTRUCTURED', 'DOCUMENTATIONTOOL_E
 Field = tranwrd(Field, 'DOCUMENTATIONTOOL_EHRSTANDARDIZED', 'DOCUMENTATIONTOOL_EHRST');
 Field = tranwrd(Field, 'POSITIVE_INDIVIDUAL_PROCESS_GENERAL', 'POSITIVE_INDIV');
 where template contains 'SBI_RT';
-run; *110, 3;
+run; *77, 3;
 
 * Create macro with list of names in order;
 proc sql noprint;
@@ -118,11 +120,9 @@ proc freq data = sbirt3;
 tables _all_*task_id;
 run;
 
-PROC CONTENTS DATA = SBIRT3 varnum;
-RUN;
 
 * ==== SET to 999 where req'd (norc_templates_comments_extracted_20220824) ===================;
-data sbirt4;
+data sbirt4 (DROP=i);
 set  sbirt3;
     array rcchr(39) 
              TOOL_SASQ
@@ -170,7 +170,7 @@ if rcchr[i] = ' ' then rcchr[i] = "999";
     end;
 RUN;  *;
 
-data sbirt5;
+data sbirt5 (DROP=i);
 set  sbirt4;
     array rcnum(5) 
                   SCREENING_PROCESS  
@@ -183,15 +183,6 @@ if rcnum[i] = . then rcnum[i] = 999;
     end;
 RUN;  *;
 
-data sbirt5;
-set  sbirt5;
-drop i drop; 
-run;
-
-proc freq data = sbirt5; 
-tables practice_id*task_id; 
-run;
-
 * Split file by task_id and drop column, save to library 'norc';
 data out.sbirt_baseline (drop=task_id) out.sbirt_post (drop=task_id);
 set sbirt5;
@@ -203,12 +194,12 @@ run; *51,55 / 42, 56;
 proc export data = out.sbirt_baseline
   outfile = "&out/sbirt_baseline"
   dbms=xlsx replace;
-run;
+run; *42: 55 ; 
 
 proc export data = out.sbirt_post
   outfile = "&out/sbirt_post"
   dbms=xlsx replace;
-run;
+run; *35 : 55 ; 
 
 * delete BAK files created by PROC EXPORT;
 filename bak  "&out/sbirt_post.xlsx.bak";
@@ -226,52 +217,8 @@ filename bak2 clear;
 * ==== EXPORT CONTENTS, FREQUENCIES, MEANS ===================================================;
 
 * Get list of variable names for contents, means, frequency export; 
-%put List of Variables=%mf_getvarlist(sbirt5);
+%put List of Variables=%mf_getvarlist(out.sbirt_baseline);
 
 * Run macro for univariate data (globals);
-%summary(ds=sbirt5,out=sbirt_summary);
-
-* ==== EXPORT CONTENTS, FREQUENCIES, MEANS ===================================================;
-
-
-ods excel file = "&FEB/sbirt_metrics.xlsx"
-    options ( sheet_name = "contents" 
-              sheet_interval = "none"
-              flow = "tables");
-
-ods excel options ( sheet_interval = "now" sheet_name = "labels_contents") ;
-
-proc contents data = out.sbirt_baseline varnum; 
-proc contents data = out.sbirt_post     varnum; run;
-
-ods excel options ( sheet_interval = "now" sheet_name = "num") ;
-
-proc print data = sbirt_summary ; run ;
-
-ods excel options ( sheet_interval = "now" sheet_name = "pre_post") ;
-
-PROC FREQ 
-     DATA = sbirt5;
-     TABLES practice_id*task_id
-                / norow nopercent nocol ;
-     TITLE  'Frequencies for Metrics Baseline, Post Results (Jan2023 data)';
-RUN; 
-TITLE; 
-
-ods excel options ( sheet_interval = "now" sheet_name = "bl_freq") ;
-
-proc freq data = out.sbirt_baseline; 
-tables practice_id*_all_;
-run; 
-
-ods excel options ( sheet_interval = "now" sheet_name = "post_freq") ;
-
-proc freq data = out.sbirt_post; 
-tables practice_id*_all_;
-run;
-
-ods excel close; 
-run;
-
-
-
+%summary(ds=out.sbirt_baseline, out=out.summary_sbirt_bl);
+%summary(ds=out.sbirt_post,     out=out.summary_sbirt_post);

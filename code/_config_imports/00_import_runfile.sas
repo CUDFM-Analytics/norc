@@ -1,28 +1,81 @@
 /*
 PROJECT      FAST
-PURPOSE:     NORC upload: Survey
+PURPOSE:     NORC uploads, import all files 
 PROGRAMMER:  K Wiggins
-LAST RAN     02/16/2023
+LAST RAN     03-21-2023
 PROCESS:     Danika exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
-NOTES:       - Use split_id_verify 
-             - Use dupdelete remove 1's : No longer in file, but was in Aug... 
-             Checks:
-                 - no keep / etc columns - all look complete - so kept all.
-                 - 2022/08/20: Sent duplicate practice_id's to Sabrina Lor - practice_id 35, 141 this time 
-             Expect: 
-                 Final result for upload should have 74 columns and be in order acc to &template_fields;
+NOTES:       Run file for importing all datasets;
         
 -----------------------------------------------------------------------------------------------------*/
 
 * ==== GLOBAL PATHS/ ALIASES  ===============================================================;
-%INCLUDE "V:/Data_Management_Team/norc/code/00_globals_20230200.sas"; 
+%INCLUDE "V:/Data_Management_Team/norc/code/00_config_20230320.sas"; 
 
-* ==== IMPORT ===============================================================================;
-* feb15 = 51, 70 // jan23 = 51, 70 // aug = 49,69;
-* comparing raw to import, the survey_other is only bringing in the first letter of text - fix; 
+
+* 001 : Import META with kickoff date = final practice list (inclusion rule = pracs with ko date); 
+DATA WORK.meta;
+    LENGTH
+        prac_npi               8
+        prac_entity_split_id   8
+        eligible               8
+        prctagrmnt_dtd         8
+        kickoff_mtg_dtd        8
+        intervention_arm       8
+        randomization_dtd      8;
+    KEEP
+        prac_npi
+        prac_entity_split_id
+        eligible
+        prctagrmnt_dtd
+        kickoff_mtg_dtd
+        intervention_arm
+        randomization_dtd;
+    FORMAT
+        prac_npi         BEST10.
+        prac_entity_split_id BEST4.
+        eligible         BEST1.
+        prctagrmnt_dtd   YYMMDD10.
+        kickoff_mtg_dtd  YYMMDD10.
+        intervention_arm BEST1.
+        randomization_dtd YYMMDD10.;
+    INFORMAT
+        prac_npi         BEST10.
+        prac_entity_split_id BEST4.
+        eligible         BEST1.
+        prctagrmnt_dtd   YYMMDD10.
+        kickoff_mtg_dtd  YYMMDD10.
+        intervention_arm BEST1.
+        randomization_dtd YYMMDD10.;
+    INFILE 'V:\Data_Management_Team\raw data\FASTPracticeMeta_raw_20230310.csv'
+        LRECL=32767
+        FIRSTOBS=2
+        ENCODING="WLATIN1"
+        DLM='2c'x
+        MISSOVER
+        DSD ;
+    INPUT
+        record_id        : $1.
+        clinicname       : $1.
+        clinicname_preferred : $1.
+        prac_npi         : ?? BEST10.
+        practiceorg      : $1.
+        statecounty_fips : $1.
+        ruca             : $1.
+        prac_entity_split_id : ?? BEST4.
+        org_entity_split_id : $1.
+        ptocoach_org     : $1.
+        eligible         : ?? BEST1.
+        prctagrmnt_dtd   : ?? YYMMDD10.
+        kickoff_mtg_dtd  : ?? YYMMDD10.
+        intervention_arm : ?? BEST1.
+        randomization_dtd : ?? YYMMDD10.
+        randomization_notes : $CHAR321. ;
+RUN;
+
+* 002 Raw survey file ; 
 data WORK.SURVEY0     ;
      %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
-     infile 'S:/FM/FM/Data_Management_Team/raw data/FASTPracticeSurvey_raw_20230120.csv' 
+     infile "&survey" 
      delimiter = ',' 
      MISSOVER 
      DSD 
@@ -245,152 +298,3 @@ data WORK.SURVEY0     ;
     ;
     if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR detection macro variable */
     run;
-
-PROC CONTENTS DATA = survey0; RUN; 
-
-* Remove the incorrect split_id field (prac_entity_split_id) > keep `split_id_verify`;
-DATA survey0;
-SET  survey0 ( DROP = prac_entity_split_id ) ;
-RUN;  
-
-PROC SORT DATA = survey0;
-BY split_id_verify; 
-RUN; 
-
-* confirm only one each ; 
-PROC FREQ DATA = survey0;
-TABLES split_id_verify; 
-RUN;  * feb15 yay;
-
-*AUG 2022: 
-Per email thread with Sabrina re: multiple ID's, documented in doc file:;
-/*data survey0a;*/
-/*set  survey0;*/
-/*if name = "Aspen Internal Medicine Consultants" then prac_entity_split_id = 3106;*/
-/*if name = "Denver Family Medicine" then prac_entity_split_id = 2070;*/
-/*if name = "Internal Medical Associates of Lafayette" then prac_entity_split_id = 2601;*/
-/*run;*/
-
-proc sql; 
-create table survey1 as 
-select split_id_verify      as PRACTICE_ID
-    , zip                   as ZIPCODE
-    , consulted___1         as SURVEY_CONSULT_CLINICIAN
-    , consulted___2         as SURVEY_CONSULT_BH
-    , consulted___3         as SURVEY_CONSULT_OTHER_CLINICAL
-    , consulted___4         as SURVEY_CONSULT_OFFICE_MANAGER
-    , consulted___5         as SURVEY_CONSULT_OFFICE_STAFF
-    , consulted___6         as SURVEY_CONSULT_PEER_PROVIDER
-    , consulted___7         as SURVEY_CONSULT_PHARMACIST
-    , consulted_other       as SURVEY_CONSULT_OTHER
-    , num_primary           as TOTAL_PRIMARY_CARE
-    , fte_primary           as FTE_PRIMARY_CARE
-    , num_psych             as TOTAL_PSYCH
-    , fte_psych             as FTE_PSYCH
-    , num_bhav              as TOTAL_BH
-    , fte_bhav              as FTE_BH
-    , num_nursing           as TOTAL_DIRECT_PT_CARE
-    , num_front_office      as TOTAL_OFFICE_STAFF
-    , num_peer_pvdr         as TOTAL_PEER_PROVIDERS
-    , num_pharm             as TOTAL_PHARMACIST
-    , num_other             as TOTAL_OTHER
-    , inpatientcare         
-    , patient_provider_day  as PATIENT_DAILY_NUMBER
-    , race_white            as PERCENTAGE_WHITE
-    , race_black            as PERCENTAGE_BLACK
-    , race_native           as PERCENTAGE_AIAN
-    , race_asian            as PERCENTAGE_ASIAN
-    , race_hawaiian         as PERCENTAGE_NHPI
-    , race_other            as PERCENTAGE_OTHER_MIXED
-    , race_unknown          as PERCENTAGE_UNKNOWN
-    , hispanic              as HISPANIC_LATINX_PERCENT
-    , non_hispanic          as NON_HISPANIC_LATINX
-    , hispanic_unknown      as HISPANIC_LATINX_UNKNOWN
-    , age_0_17              as PATIENT_AGE_0_17
-    , age_18_39             as PATIENT_AGE_18_39
-    , age_40_59             as PATIENT_AGE_40_59
-    , age_60_75             as PATIENT_AGE_60_75
-    , age_76up              as PATIENT_AGE_76_OLDER
-    , gender_male           as GENDER_IDENTITY_MEN
-    , gender_female         as GENDER_IDENTITY_WOMEN
-    , gender_nonbinary      as GENDER_IDENTITY_NB
-    , gender_none           as GENDER_IDENTITY_UNKNOWN
-    , demog_data            as DATA_SOURCE
-from survey0;
-quit; *;
-
-* Create calculated variables for 'x_collected';
-data survey2;
-set  survey1;
-
-if hispanic_latinx_unknown = 100 then ETHNICITY_COLLECTED = 0;
-    else ETHNICITY_COLLECTED = 1;
-
-if GENDER_IDENTITY_UNKNOWN = 100 then GENDER_COLLECTED = 0;
-    else GENDER_COLLECTED = 1;
-
-if PERCENTAGE_UNKNOWN = 100 then RACE_COLLECTED = 0;
-    else RACE_COLLECTED = 1;
-
-Grantee = 'CO';
-
-RUN; 
-*49, 47;
-
-* Recode inpatient care, then drop
-    > original: 1) Yes, 0) No clinicians visit patients in hosp, -1) No Hospital-based staff provides 
-    > for norc: 1) Yes, 2) No clinicians visit patients in hosp,  3) No Hospital-based staff provides;
-
-PROC FREQ 
-DATA   = survey2; 
-TABLES inpatientcare;
-RUN; 
-
-DATA survey3;
-SET  survey2;
-IF inpatientcare = -1     THEN INPATIENT_ADMISSIONS = 3;
-ELSE IF inpatientcare = 0 THEN INPATIENT_ADMISSIONS = 2;
-ELSE IF inpatientcare = 1 THEN INPATIENT_ADMISSIONS = 1;
-ELSE INPATIENT_ADMISSIONS = 999;
-RUN; *49, 48;
-* feb (jan) : original had 35                        n=7                            n=6
-* aug:        original had 34 (-1 --> recode to "3") n=7 (0 --> recoded to "2") and n=5 (1) ;
-
-PROC FREQ DATA = survey3;
-TABLES inpatient:;
-RUN; 
-* feb     value 1 (n=6), value 2 (n=7) value 3 (n=35) value 999 (n=3)
-  jan now value 1 (n=6), value 2 (n=7) value 3 (n=35) value 999 (n=3);
-
-DATA survey4 (drop=inpatientcare);
-SET  survey3;
-RUN; *49, 47;
-
-/*            * Find instances with >1 practice_id and send to Sabrina Lor;*/
-            proc sql; 
-            create table survey_multiple_ids as 
-            select *
-                , count(practice_id)
-            from survey4
-            group by practice_id
-            having count(practice_id) >1;
-            quit; * 0 rows;
-/**/
-/*            * exported and sent to Sabrina Lor 08/25/2022;*/
-/*                        proc export data = norc.survey_multiple_ids*/
-/*                            outfile = "&norc/pracsurvey_mult_&datestamp"*/
-/*                            dbms=xlsx replace;*/
-/*                        run;*/
-
-*save to library;
-data out.survey_20230120;
-set  survey4;
-run; *44, 47;
-
-* use date from last dataset, not date ran; 
-proc sort data = out.survey_20230120; by practice_id; run;
-
-proc freq data = out.survey_20230120;
-run;
-
-* Don't need to export: wait until merged with PracticeApp;

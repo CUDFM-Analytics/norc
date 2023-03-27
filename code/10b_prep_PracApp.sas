@@ -19,23 +19,15 @@ TO SELECT : select the row where fast_pto = 2661 & practice_id = 3319/ code ROW 
 
 0    •	High Plains Adult Health Center— not enrolled in FAST, only ISP; they have two records because they completed an application for ISP twice. It’s the same practice with the same practice ID in SPLIT (2087) but one of the names listed is their “official practice name” and one is their “preferred practice name.”*/
 
-* ==== GLOBAL PATHS/ ALIASES  ===============================================================;
-%INCLUDE "V:/Data_Management_Team/norc/code/00_globals_20230300.sas"; 
-
 * ==== IMPORT ===============================================================================;
 proc import 
         file = "&application."
         out = app0
-        dbms = xlsx replace;
+        dbms = csv replace;
 run; *feb (jan data) 177, 24; 
 
 PROC CONTENTS DATA = app0;
 RUN; 
-
-DATA app1;
-set  app0;
-if   prac_entity_split_id = 3319 AND  FAST_PTO = . THEN DELETE; *remove the incorrect record for split id 3319; 
-RUN; * 176;
 
 * ==== CHECK FOR DUPLICATES ===================================================================;
     PROC SQL;
@@ -50,7 +42,8 @@ RUN; * 176;
     WHERE n_splitid > 1;
     RUN; 
 
-    * 02/16 > Two records had > 1 split id: 2087, 3319 > emailed Danika with copy of .csv 
+    * 03/21 none 
+	  02/16 > Two records had > 1 split id: 2087, 3319 > emailed Danika with copy of .csv 
       02/16 > new practice without split id : clinic name 'Guardian Angels Health Center` ;
 
 * ==== SELECT COMPLETE RECORDS, RENAME ========================================================;
@@ -77,34 +70,18 @@ select PRAC_ENTITY_SPLIT_ID AS PRACTICE_ID
      , FAST_APPLICATION_COMPLETE
      , PCMH
 from app1 
-where fast_application_complete = 2 ;
-quit; *173 ; 
+where fast_application_complete = 2 
+AND   prac_entity_split_id IN (SELECT prac_entity_split_id FROM work.meta);
+quit; *52 ; 
 
     proc sort data = app2 ; by practice_id ; run; 
     proc print data = app2 ; run;
 
-* missing a split id in this one so have to remove that entry for now until it's fixed: ;
-DATA APP2 ( WHERE = ( practice_id ne . ) );
-SET  app2; 
-RUN; *172 records now; 
-
-proc sql; 
-create table app3 as
-    select *
-    from app2
-    where practice_id in ( SELECT practice_id FROM out.survey_20230120 );
-quit; *jan [51, 19] aug[44, 18]; 
-
-* make sure none are dupes;
-proc freq data = app3;
-tables practice_id;
-run;
-
 *drop vars;
-data app4 (drop=fast_application_complete);
-set  app3;
+data app3 (drop=fast_application_complete);
+set  app2;
 run;
 
 data out.app;
-set  app4;
-run; *feb[51, 18] jan[51, 18] aug[44, 17];
+set  app3;
+run; *march [52, 18] -- jan[51, 18]--  aug[44, 17];

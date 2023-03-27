@@ -13,6 +13,8 @@ NOTES:          Can't find old file (jan upload of fieldnote), DD said no code -
 
 -----------------------------------------------------------------------------------------------------*/
 
+%let fieldnote = &raw/FASTFieldnote_raw_20230310.xlsx;
+%INCLUDE "&code/13a_formats_fieldnotes.sas";
 
 proc import 
     file = "&fieldnote."
@@ -41,11 +43,12 @@ label   session_num_0 = session_num_0
 
 run; *515, 126;
 
-proc freq data = norc.fn00_raw;
-run;
-
-proc contents data = norc.fn00_raw;
-run;
+* Check where there was > 1 field note if split id had kickoff; 
+PROC PRINT DATA = fn00 ; 
+VAR   sim_id kickoff_date KEEP_OR_DELETE survey_id ;
+WHERE sim_id in ('2429','3355')
+AND   kickoff_date ne ' ' ; 
+RUN ; 
 
 * Dropping cols and keeping where kickoff_date isn't missing only
 two practices had kickoff_date for more than 1 session, so I kept the earliest one;
@@ -78,7 +81,7 @@ data fn02_id_check_baseline;
 set  fn02;
 if _n_ = 1
 then do;
-  declare hash d1 (dataset:"out.survey_baseline_20230123");
+  declare hash d1 (dataset:"out.survey_baseline_20230321");
   d1.definekey("practice_id");
   d1.definedone();
 end;
@@ -89,15 +92,7 @@ proc print data = fn02_id_check_baseline;
 where flag = 0; 
 run;
 
-data out.fnid_notin_survey;
-set  fn02_id_check_baseline;
-where flag = 0;
-run; 
 
-proc export data = out.fnid_notin_survey
-  outfile = "&feb/fieldnoteID_notin_baseline"
-  dbms=xlsx replace;
-run;
 
 * END --------------------------------------------------;
 

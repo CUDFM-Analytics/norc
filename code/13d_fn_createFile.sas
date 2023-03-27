@@ -8,6 +8,7 @@ NOTES:          Issues resolved from 13c_ file (things exported / sent to Sabrin
                 This file based on responses from questions in there;
 
 ---------------------------------------------------------------------------------------------*/
+%INCLUDE "&code/13a_formats_fieldnotes.sas";
 
 * Dropping cols and keeping where kickoff_date isn't missing only;
 data out.fn_final
@@ -60,7 +61,7 @@ PRIMARY_PURPOSE_OTHER   = 999;
 ADDITIONAL_KICKOFF      = 999;              * since this is kickoff, won't have additional;
 NOTES                   = 999;
 
-format DURATION time_.;
+format DURATION $time_.;
 
 *create cols from variables;
 if session_num_2 = 1 then ADDITIONAL_ADMIN = 1;

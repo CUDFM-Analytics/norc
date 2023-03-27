@@ -41,7 +41,7 @@ data  metrics1 ( keep = sim_id
                         m_mat
                         m_referrd ) ;
 set   metrics0 ;
-where task_id in ("194","215") and keep_or_delete = "KEEP" and finished = "True";
+where task_id in ("194","215") and keep_or_delete = "KEEP" and finished = "True" ;
 run; * 86, 8;
 
 data metrics2;
@@ -94,29 +94,32 @@ retain GRANTEE
 set    metrics3;
 run; *82, 14;
 
+* check against meta ; 
+PROC SQL ; 
+CREATE TABLE metrics4 AS 
+SELECT *
+FROM metrics3 
+WHERE practice_id IN (SELECT txt_prac_entity_split_id FROM out.inclusion) ; 
+RUN ; 
+
 * Split file by task_id and drop column, save to library 'norc';
 data out.metrics_baseline (drop=task_id) out.metrics_post (drop=task_id);
-set metrics3;
+set metrics4;
 if task_id = 194 then output out.metrics_baseline; 
 if task_id = 215 then output out.metrics_post;    
 run; *44 / 34;
 
-* system won't take splitid 2224 - says bad data... ;
-DATA metrics4;
-set  metrics3;
-if   practice_id = 2224 then delete; 
-run; * from 82 to 81; 
 
 * ==== EXPORT UPLOADS  ===================================================;
 proc export data = out.metrics_baseline
     outfile = "&out/metrics_baseline"
     dbms=xlsx replace;
-run; * 45; 
+run; * march = 36 / feb = 45; 
 
 proc export data = out.metrics_post
     outfile = "&out/metrics_post"
     dbms=xlsx replace;
-run; * 37;
+run; * 34 March (from 37 feb with incorrect file?) ;
 
 * delete BAK files created by PROC EXPORT;
 filename bak  "&out/metrics_post_20220825.xlsx.bak";
@@ -137,41 +140,8 @@ filename bak2 clear;
 %put List of Variables=%mf_getvarlist(metrics3);
 
 * Run macro for univariate data (globals);
-%summary(ds=metrics3,out=metrics_sum);
-
-
-ods excel file = "&FEB/summary_metrics.xlsx"
-    options ( sheet_name = "contents" 
-              sheet_interval = "none"
-              flow = "tables");
-
-ods excel options ( sheet_interval = "now" sheet_name = "labels_contents") ;
-
-proc print data = &template_fields;
-where Template contains 'Process';
-run;
-
-proc contents data = out.metrics_baseline label varnum; run;
-
-ods excel options ( sheet_interval = "now" sheet_name = "num") ;
-
-proc print data = metrics_sum ; run ;
-
-ods excel options ( sheet_interval = "now" sheet_name = "pre_post") ;
-
-ods text = "SplitID 2224 had to be removed for upload to be successful";
-
-PROC FREQ 
-     DATA = metrics4;
-     TABLES practice_id*task_id
-                / norow nopercent nocol ;
-     format task_id $metrics.;
-     TITLE  'Frequencies for Metrics Baseline, Post Results (Jan2023 data)';
-RUN; 
-TITLE; 
-
-ods excel close; 
-run;
+%summary(ds=out.metrics_baseline, out=out.summary_metrics_bl  );
+%summary(ds=out.metrics_post,     out=out.summary_metrics_post);
 
 
 

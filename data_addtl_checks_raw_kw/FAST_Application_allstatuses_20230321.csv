@@ -1,0 +1,61 @@
+record_id,prac_entity_split_id,kickoff_mtg_dtd,clinicname,clinicname_preferred,fastwave,intervention_arm,fast_start_dtd,prctagrmnt_dtd,practicesurvey_dtd,pause,dropout_dtd,prac_dropout,status
+5,2576,8/25/2021,Castillo Primary Care,Castillo Primary Care,14,1,7/1/2021,7/7/2021,7/6/2021,,,,4
+7,2640,6/9/2020,St. Luke's Medical Clinic,St. Luke's Medical Clinic,1,0,6/1/2020,9/11/2020,9/3/2020,,,,5
+12,2135,6/29/2020,ChrMeg Inc.,Parker Family Care,1,0,6/1/2020,6/1/2020,9/1/2020,,,,4
+16,2580,8/18/2021,Center Pointe Family Medicine,Center Pointe Family Medicine - South,13,1,6/1/2021,,,,10/7/2021,2,5
+17,3310,8/18/2021,Center Pointe Family Medical Group,Center Pointe Family Medicine Group,13,1,6/1/2021,,,,10/7/2021,2,5
+19,2359,8/17/2020,Heartlight Family Clinic,Heartlight Family Clinic,3,1,8/1/2020,8/11/2020,9/9/2020,,9/29/2020,3,1
+20,2070,6/24/2020,Denver Family Medicine,Denver Family Medicine,1,0,6/1/2020,6/5/2020,6/4/2020,,,,4
+22,30,6/18/2020,"MidValley Family Practice, PC",MidValley Family Practice,1,0,6/1/2020,5/28/2020,5/27/2020,,,,4
+28,2585,,"DTC Family Health, PLLC",DTC Family Health,1,1,6/1/2020,,,,7/31/2020,2,5
+39,2133,6/17/2020,"Northeast Colorado Family Medicine Associates, P.C.","Northeast Colorado Family Medicine Associates, P.C.",1,1,6/1/2020,5/29/2020,5/27/2020,,,,4
+41,3106,6/11/2020,Aspen Internal Medicine Consultants,Aspen Leaf Internal Medicine,1,1,6/1/2020,6/5/2020,6/4/2020,,,,4
+42,3349,9/25/2020,Rocky Vista Health Center,Rocky Vista Health Center,5,1,10/1/2020,9/24/2020,10/28/2020,,,,5
+44,2429,7/6/2020,Trey Medical Enterprises,"Trey Medical Enterprises, Inc",1,0,6/1/2020,6/1/2020,6/1/2020,,,,4
+45,2638,6/22/2020,Southern Colorado Medicine,Southern Colorado Medicine,1,1,6/1/2020,5/28/2020,5/27/2020,,,,4
+48,2123,6/25/2020,Internal Medicine at Valley View,Internal Medicine at Valley View Hospital,1,1,6/1/2020,6/2/2020,6/2/2020,,,,4
+50,2645,,"Community Dental Clinic, Inc.",The PIC Place,13,1,6/1/2021,5/5/2021,5/5/2021,1,,,5
+51,2067,6/16/2020,Conifer Medical Center,"Conifer Medical Center, P.C.",1,1,6/1/2020,5/29/2020,5/27/2020,,,,4
+53,153,6/16/2020,Roaring Fork Family Practice,Roaring Fork Family Practice,1,0,6/1/2020,7/1/2020,6/3/2020,,,,4
+57,35,7/8/2020,Highlands Health for Life,Highlands Health for Life,1,0,6/1/2020,6/5/2020,6/4/2020,,,,4
+65,2642,,"Dr Lisa Lewis, PC",Sustaina Center for Women,10,1,3/1/2021,,,1,,,5
+67,3321,8/28/2020,Rocky Mountain Medical & Healthcare,Rocky Mountain Medical & Healthcare,3,0,8/1/2020,12/2/2020,9/8/2020,,,,4
+72,2588,6/16/2020,Dr. Lu Family Medicine,"Dr. Lu Family Medicine, PLLC",1,1,6/1/2020,5/29/2020,5/26/2020,,,,4
+76,3355,6/16/2020,Visiting Medical Clinic,Visiting Medical Clinic,1,1,6/1/2020,6/16/2020,6/16/2020,,,,4
+105,2599,7/23/2020,Internal Medicine Associates Buffalo Ridge,Internal Medicine Associates Buffalo Ridge,2,0,7/1/2020,8/4/2020,10/21/2020,,,,4
+106,148,7/16/2020,Spruce Street Internal Medicine,Spruce Street Internal Medicine,2,1,7/1/2020,8/4/2020,10/21/2020,,,,4
+107,2601,8/27/2020,Internal Medicine Associates Lafayette,Internal Medicine Associates Lafayette,2,1,7/1/2020,8/4/2020,7/9/2020,,,,4
+108,2600,7/23/2020,Internal Medicine Associates Boulder,Internal Medicine Associates Boulder,2,0,7/1/2020,8/4/2020,10/21/2020,,,,4
+109,2595,7/22/2020,Frontier Internal Medicine,Frontier Internal Medicine,2,1,7/1/2020,8/4/2020,10/21/2020,,,,4
+110,3377,7/23/2020,Erie Family Medicine,Erie Family Medicine,2,0,7/1/2020,8/4/2020,10/21/2020,,,,4
+111,122,7/21/2020,Boulder Creek Family Medicine,Boulder Creek Family Medicine,2,1,7/1/2020,8/4/2020,6/23/2020,,,,4
+112,2586,7/17/2020,Dakota Ridge Family Medicine,Dakota Ridge Family Medicine,2,1,7/1/2020,8/4/2020,6/24/2020,,,,4
+113,143,7/24/2020,Gunbarrel Family Medicine,Gunbarrel Family Medicine,2,1,7/1/2020,8/4/2020,1/18/2021,,,,4
+114,141,7/16/2020,Family medical Associates,Family medical Associates,2,0,7/1/2020,8/4/2020,7/9/2020,,,,4
+115,140,7/13/2020,Northwest Family Medicine,Northwest Family Medicine,2,0,7/1/2020,8/4/2020,6/24/2020,,,,4
+116,95,,Porter Primary Care,Porter Primary Care - Harvard Park,11,1,,,,,,,1
+117,3378,,Highlands Primary Care,Highlands Primary Care,11,0,,,,,,,1
+130,100,8/21/2020,MarillacHealth,Marillac Clinic Grand Junction,3,0,8/1/2020,10/29/2020,12/21/2020,1,6/1/2021,2,5
+131,15,,Associates in Family Medicine PC,Associates in Family Medicine - Horsetooth,9,1,2/1/2021,,,,3/2/2021,2,5
+134,3397,2/16/2021,Adult Medicine Specialists,Adult Medicine Specialists,9,0,2/1/2021,7/15/2021,2/12/2021,,,,4
+135,2117,8/21/2020,Marillac Health,Marillac- County,3,0,8/1/2020,10/29/2020,12/21/2020,1,6/1/2021,2,5
+136,3256,8/26/2020,Walsh Medical Clinic,Walsh Medical Clinic,3,1,8/1/2020,8/24/2020,9/25/2020,,,,4
+138,2164,2/18/2021,SET Family Medical Clinics,SET Family Medical Clinics,9,1,2/1/2021,8/28/2020,9/1/2020,,,,4
+139,2590,9/23/2020,"Family Care Specialists, PC","Family Care Specialists - Pueblo, CO",4,0,9/1/2020,9/2/2020,9/2/2020,,,,4
+142,3255,3/29/2021,Valley Medical Clinic,Sedgwick County Health Center,9,1,2/1/2021,2/1/2021,,,,,4
+143,3247,3/11/2021,Northwest Colorado Visiting Nurse Association,Northwest Colorado Health - Steamboat,10,1,3/1/2021,3/9/2021,3/16/2021,,,,4
+144,2134,3/11/2021,Northwest Colorado Visiting Nurse Association,Northwest Colorado Health - Craig,10,1,3/1/2021,3/9/2021,3/23/2021,,,,4
+145,2569,4/29/2021,Akron Clinic,Akron Clinic,10,0,3/1/2021,,9/27/2022,,,,4
+146,2415,3/18/2021,Ted J Puls MD PC,Puls and Mann,10,0,3/1/2021,3/22/2021,3/8/2021,,,,4
+149,3430,3/26/2021,Colorado Adult primary care,Colorado Adult primary care,10,1,3/1/2021,6/4/2021,6/4/2021,,,,4
+166,2226,2/28/2022,St Anthony Health Centers Evergreen,St. Anthony Health Center Evergreen,17,0,10/10/2021,7/19/2022,7/15/2022,1,,,5
+178,3319,8/18/2021,Center Pointe Family Medicine,Center Pointe Family Medicine - North,13,1,6/1/2021,,,,9/3/2021,3,1
+191,3487,12/7/2021,South Suburban Internal Medicine,South Suburban Internal Medicine,18,1,11/1/2021,10/22/2021,1/31/2022,,,,4
+192,3488,12/1/2021,Highlands Ranch Medical Associates,Highlands Ranch Medical Associates,18,0,11/1/2021,10/22/2021,2/2/2022,,,,4
+194,3490,1/18/2022,MedNOW Clinics-Aurora,,19,0,12/1/2021,12/28/2021,3/9/2022,,,,4
+195,2120,1/18/2021,MedNOW Clinics-Denver,,19,1,12/1/2021,12/28/2021,3/9/2022,,,,4
+196,3492,1/18/2022,MedNOW Clinics-Englewood,,19,0,12/1/2021,12/28/2021,3/9/2022,,,,4
+197,3493,1/18/2022,MedNOW Clinics- Lakewood,,19,1,12/1/2021,12/28/2021,3/9/2022,,,,4
+198,2224,1/18/2022,MedNOW Clinics-Denver South,,23,0,4/1/2022,9/1/2022,,,,,4
+199,3498,,MDVIP365,Priority Medical Group,24,1,5/1/2022,,6/5/2022,,,,5
+200,3499,,Arizona Medical Center,,24,1,5/3/2022,,6/5/2022,,,,5
