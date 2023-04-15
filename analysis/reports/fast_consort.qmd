@@ -1,0 +1,131 @@
+---
+title: "FAST Consort"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: 
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    keep_tex: yes
+latex_engine: pdflatex
+classoption: landscape
+header-includes:
+  \usepackage{helvet}
+  \renewcommand\familydefault{\sfdefault}
+---
+
+```{r setup}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+
+pacman::p_load(here,
+							 tidyverse,
+							 ggconsort,
+							 dtracker,
+							 gtsummary
+							 )  
+
+
+```  
+
+## Practice App:  
+  * Report ID:
+  * Report Filters: 
+  * 
+  
+## Practice Survey:  
+  * Report ID: 
+  * Report Filters: 
+  
+```{r readRDS}
+survey <- readRDS("C:/Users/wigginki/OneDrive - The University of Colorado Denver/Documents/norc/analysis/data/survey.RDS") #52 4/12
+app    <- readRDS("C:/Users/wigginki/OneDrive - The University of Colorado Denver/Documents/norc/analysis/data/app.RDS") |> 
+	mutate(kickoff_mtg = ifelse(kickoff_mtg_dtd == '',0,1),
+				 kickoff_mtg_dtd = lubridate::mdy(kickoff_mtg_dtd)) #73 4/12
+
+app_consort <- app |> 
+	select(splitID = prac_entity_split_id,
+				 nm_prac_pref  = clinicname_preferred,
+				 arm = intervention_arm,
+				 kickoff_mtg,
+				 dt_ko_mtg = kickoff_mtg_dtd,
+				 status,
+				 status.fct,
+				 consort_dropout_code,
+				 consort_dropout_code.fct
+				 )
+```   
+
+## App Practice Status Overview  
+
+12 observations did not have intervention arm assigned:  
+
+```{r}
+app_consort |> 
+	arrange(splitID) 
+
+```
+
+
+
+```{r}
+app_consort |> 
+		select(arm,
+				 kickoff_mtg,
+				 status.fct,
+				 consort_dropout_code.fct) |> 
+	gtsummary::tbl_summary(by = arm) |> 
+	gtsummary::add_overall()
+
+```   
+
+
+
+```{r}
+app |> 
+	select(prac_entity_split_id,
+				 clinicname_preferred,
+				 intervention_arm,
+				 kickoff_mtg_dtd,
+				 status.fct, 
+				 fast_application_complete)  |> 
+	arrange(prac_entity_split_id) |> 
+	knitr::kable(
+    format = "latex",
+    align = "l",
+    booktabs = TRUE,
+    longtable = TRUE,
+    linesep = "",
+    ) %>%
+  kableExtra::kable_styling(
+      position = "left",
+      latex_options = c("striped", "repeat_header"),
+      stripe_color = "gray!15"
+    )
+
+
+
+```  
+
+```{r}
+sjPlot::plot_frq(app$status.fct)
+```  
+
+
+```{r}
+library(dtrackr)
+
+old = options(
+	dtrackr.default_message = "{.count} practices")  
+
+app_consort = app |> 
+	filter(!is.na(intervention_arm)) |> 
+	track() |> 
+	filter(status == 1)
+	
+	
+```
+
+
+

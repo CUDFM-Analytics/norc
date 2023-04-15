@@ -1,0 +1,15 @@
+---
+title: "readme"
+format: html
+editor: visual
+---
+
+```{r}
+here::i_am("fast_readme.qmd")
+```
+
+```{r}
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

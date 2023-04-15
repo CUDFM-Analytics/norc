@@ -11,8 +11,13 @@
 %let out  = &NORC/2023_03; * March sas exports, 2023 ; 
 libname out "&out";
 
+%LET aug= &norc./2022_08/data;
+LIBNAME aug "&aug"; 
+
 * ==== Raw data from Danika, exported from REDCap =================;
 %let raw  = &ROOT/raw data; 
+* Made my own raw folder for fixing issues for final upload; 
+
 
 * Qualtrics sets (row 1 = colnames, row2 = labels, row 3 = data); 
 * Updated 03/21;
@@ -39,7 +44,7 @@ filename survtemp "&survtemplate";
 %let template_order  = out.survey_field_order;
 
 * INCLUDE import template file (project, general) ; 
-%INCLUDE "&import./templates.sas"; 
+/*%INCLUDE "&import./templates.sas"; */
 
 proc format lib = out;
    value missing .='999';
@@ -74,6 +79,7 @@ run;
 proc print data = &out;
 run; 
 %mend;
+
 
 
 %macro mf_getvarlist(libds

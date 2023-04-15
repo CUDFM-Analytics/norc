@@ -1,0 +1,124 @@
+
+recordid="Record ID"
+prac_entity_split_id="Practice SPLIT ID:"
+split_id_verify="SPLIT ID Verification: These have been verified with the FAST project"
+name="Practice Name:"
+zip="Practice Zip Code:"
+state="Practice State"
+survey_dtd="Date survey was completed: "
+consulted___1="Consulted Clinician (MD, DO, NP, PA))"
+consulted___2="Consulted Behavioral health clinician"
+consulted___3="Consulted Other clinical staff"
+consulted___4="Consulted Office manager"
+consulted___5="Consulted Front/back office staff"
+consulted___6="Consulted Peer provider"
+consulted___7="Consulted Pharmacist"
+consulted___8="Consulted Other"
+consulted_other="Consulted Other: text"
+num_primary="n Primary Care Clinicians (MD, DO, NP, PA)"
+fte_primary="n FTE Primary Care Clinicians (MD, DO, NP, PA)"
+num_psych="n Psychiatrists"
+fte_psych="n FTE Psychiatrists"
+num_bhav="n Behavioral Health Clinicians"
+fte_bhav="n FTE Behavioral Health Clinicians"
+num_nursing="n Nursing Staff"
+num_front_office="n Front Office Staff"
+num_peer_pvdr="n Peer Providers"
+num_pharm="n Pharm"
+num_other="n Other"
+patient_visits_wk="n patient visits per week"
+patient_provider_day="Average patients per day"
+inpatientcare="Clinicians provide inpatient care, hospital admissions"
+race_white="White"
+race_black="Black/African American"
+race_native="American Indian or Alaska Native"
+race_hawaiian="Native Hawaiian or Other Pacific Islander "
+race_asian="Asian"
+race_other="Some Other Race/Mixed Race"
+race_unknown="Percent Unknown"
+hispanic="Hispanic or Latino"
+non_hispanic="Non-Hispanic or non-Latino"
+hispanic_unknown="Percent Unknown"
+age_0_17="0-17"
+age_18_39="18-39"
+age_40_59="40-59"
+age_60_75="60-75"
+age_76up="76 and over"
+age_unk="Percent Unknown"
+gender_male="Male"
+gender_female="Female"
+gender_nonbinary="Non-binary/gender nonconforming, gender fluid"
+gender_none="Prefer not to say"
+demog_data="How obtained demo proportions"
+underserved="Practice designated as MUA, MUP by HRSA"
+registry___1="Registry Category Alcohol use disorder"
+registry___2="Registry Category Opioid use disorder"
+registry___3="Registry Category Ischemic vascular disease"
+registry___4="Registry Category Hypertension"
+registry___5="Registry Category High cholesterol"
+registry___6="Registry Category Diabetes"
+registry___7="Registry Category Prevention services"
+registry___8="Registry Category High risk "
+registry___9="Registry Category None"
+registry_config="Practice registry, new conditions"
+teamlearn_formal_train="Training in past 2 years"
+teamlearn_how_train="Training Method"
+$teamlearn_name_training="Name of the training, trainer, or subject"
+$teamlearn_name_train_specify="19b. Yes, please specify the name of the training, trainer, or subject:"
+train_together="Train as practice team"
+train_small_teams="Train in smaller teams"
+train_idv="Train everyone individually"
+fast_practice_survey_complete="Complete?"
+
+
+# Factors 
+state = factor(state,
+			   levels=c("1","2","3","4","5","6","7","8","9","10"),
+			   labels=c("AR","CO","IA","KS","NE","NV","NM","OK","UT","WY"))
+surv1$consulted___1.factor = factor(surv1$consulted___1,levels=c("0","1"))
+surv1$consulted___2.factor = factor(surv1$consulted___2,levels=c("0","1"))
+surv1$consulted___3.factor = factor(surv1$consulted___3,levels=c("0","1"))
+surv1$consulted___4.factor = factor(surv1$consulted___4,levels=c("0","1"))
+surv1$consulted___5.factor = factor(surv1$consulted___5,levels=c("0","1"))
+surv1$consulted___6.factor = factor(surv1$consulted___6,levels=c("0","1"))
+surv1$consulted___7.factor = factor(surv1$consulted___7,levels=c("0","1"))
+surv1$consulted___8.factor = factor(surv1$consulted___8,levels=c("0","1"))
+surv1$inpatientcare.factor = factor(surv1$inpatientcare,levels=c("1","0","-1"))
+surv1$demog_data.factor = factor(surv1$demog_data,levels=c("1","2","3"))
+surv1$underserved.factor = factor(surv1$underserved,levels=c("1","0"))
+surv1$registry___1.factor = factor(surv1$registry___1,levels=c("0","1"))
+surv1$registry___2.factor = factor(surv1$registry___2,levels=c("0","1"))
+surv1$registry___3.factor = factor(surv1$registry___3,levels=c("0","1"))
+surv1$registry___4.factor = factor(surv1$registry___4,levels=c("0","1"))
+surv1$registry___5.factor = factor(surv1$registry___5,levels=c("0","1"))
+surv1$registry___6.factor = factor(surv1$registry___6,levels=c("0","1"))
+surv1$registry___7.factor = factor(surv1$registry___7,levels=c("0","1"))
+surv1$registry___8.factor = factor(surv1$registry___8,levels=c("0","1"))
+surv1$registry___9.factor = factor(surv1$registry___9,levels=c("0","1"))
+surv1$registry_config.factor = factor(surv1$registry_config,levels=c("1","0"))
+
+surv1$teamlearn_how_train.factor = factor(surv1$teamlearn_how_train,levels=c("1","2","3"))
+
+surv1$teamlearn_name_training.factor = factor(surv1$teamlearn_name_training,levels=c("0","1"))
+
+surv1$train_together.factor = factor(surv1$train_together,levels=c("2","1","0"))
+surv1$train_small_teams.factor = factor(surv1$train_small_teams,levels=c("2","1","0"))
+surv1$train_idv.factor = factor(surv1$train_idv,levels=c("2","1","0"))
+surv1$fast_practice_survey_complete.factor = factor(surv1$fast_practice_survey_complete,levels=c("0","1","2"))
+
+levels(surv1$state.factor)=
+
+levels(surv1$inpatientcare.factor)=c("Yes, clinicians provide inpatient care.","No. Clinicians visit patients in hospital but do not provide inpatient care.","No. Hospital-based staff provides all care for inpatients.")
+levels(surv1$demog_data.factor)=c("EHR query/extract","Manual count","Best estimate or informed approximation")
+levels(surv1$underserved.factor)=c("Yes","No")
+
+levels(surv1$registry_config.factor)=c("Yes","No")
+
+
+levels(surv1$teamlearn_how_train.factor)=c("Entire practice","Smaller team","Individual")
+levels(surv1$teamlearn_name_training.factor)=c("No","Yes, please specify")
+levels(surv1$train_together.factor)=c("Always or almost always","Sometimes","Rarely or Never")
+levels(surv1$train_small_teams.factor)=c("Always or almost always","Sometimes","Rarely or Never")
+levels(surv1$train_idv.factor)=c("Always or almost always","Sometimes","Rarely or Never")
+levels(surv1$fast_practice_survey_complete.factor)=c("Incomplete","Unverified","Complete")
+

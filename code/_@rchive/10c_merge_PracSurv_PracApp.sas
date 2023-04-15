@@ -5,26 +5,19 @@ PROGRAMMER:     K Wiggins
 LAST RAN        02/16/2023
 PROCESS:        Danika exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
 NOTES:          Final result for upload should have 64 columns and be in order acc to &template_fields;
------------------------------------------------------------------------------------------------------
-CHANGE LOG
-   Date         By      Purpose
-1. 01/15/22     KW      Copied from Dionisia's original to not mess with it
-2. 08/25/22     KW      Adapted from last iteration survey only, NORC
-3. 02/25/22     KW      Changed date stamps to match date of raw data
+-----------------------------------------------------------------------------------------------------;
+LAST RAN: 04-04-2023*/
 
-LAST RAN: 08/26/2022*/
 
-* ==== GLOBAL PATHS/ ALIASES  ===============================================================;
-* %INCLUDE "V:/Data_Management_Team/norc/code/00_config_20230320.sas";
-* ==== MERGE  ===============================================================================;
-proc sql; 
-create table survey_app as
-select a.*
-    , b.*
-from out.survey_20230320 as a
-left join out.app as b
-on a.practice_id = b.practice_id; 
-quit; * 51, 64; 
+PROC SORT DATA = out.inclusion ; by prac_entity_split_id ; RUN ; 
+
+
+
+* Rename practice_id2, drop practice_id ; 
+DATA survey_app0a (rename=(practice_id2 = practice_id)); 
+set  survey_app (drop=practice_id); 
+run ; 
+
 
 * ==== MATCH TEMPLATE COLUMNS ===============================================================;
 * find template fields need to keep / order; 
@@ -36,11 +29,11 @@ quit;
 
 data survey_app2;
 retain &order.;
-set  survey_app;
+set  survey_app1;
 run;
 
 * ==== SET to 999 where req'd (norc_templates_comments_extracted_20220824) ===================;
-data out.survey_baseline_20230321;
+data out.survey_baseline (drop = i) ;
 set  survey_app2;
     array missing {18}  SURVEY_CONSULT_CLINICIAN
                         SURVEY_CONSULT_BH
@@ -63,7 +56,8 @@ set  survey_app2;
     do i=1 to 18 ; 
     if missing[i] = . then missing[i] = 999;
     end;
-RUN;  *feb [51,64];
+Grantee = "Colorado";
+RUN;  *feb [50,64];
 
 * why do I create an i ? #DO Figure out how to array without it ; 
 DATA out.survey_baseline_20230321 ; 

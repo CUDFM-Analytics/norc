@@ -1,0 +1,64 @@
+record_id,prac_entity_split_id,clinicname,clinicname_preferred,interventionarm_final,wave_choice
+4,3437,Summit Primary Care,Summit Primary Care,2,1
+6,2576,Castillo Primary Care,Castillo Primary Care,2,1
+7,17,"Bender Medical Group, Inc",Miramont Wellness Centers,1,1
+8,3502,Sound Clinic,Sound Clinic,3,1
+9,2063,Colorado Primary Care Clinic,Colorado Primary Care Clinic,1,1
+10,3503,First Health Family Medicine,First Health Family Medicine,2,2
+11,3102,Southeast Wellness Works,Southeast Wellness Works,2,1
+12,3351,Lakewood Medical Center,Lakewood Medical Center,1,2
+13,2640,St lukes medical clinic,St lukes medical clinic,1,2
+14,2653,Yuma District Hospital & Clinic,Yuma District Hospital & Clinic,3,1
+15,16,Summit Medical Clinic,Summit Medical Clinic,1,2
+16,30,MidValley Family Practice,MidValley Family Practice,1,2
+18,81,Altitude Family & Internal Medicine,Altitude Family & Internal Medicine,3,2
+19,2589,Elena Anisimova MD PC,Elena Anisimova MD PC,2,2
+22,3504,"University Family Medicine Center, PC","University Family Medicine Center, PC",3,2
+23,2415,Ted J Puls MD PC,Ted J Puls MD PC,3,2
+24,109,Salud Family Health Fort Morgan,Salud Family Health Fort Morgan,1,1
+25,3234,Colorado Plains Internal Medicine,Colorado Plains Internal Medicine,3,1
+26,3501,327 Professional Corp,First Street Family Health,3,1
+27,3436,Summit Primary Care Colorado Springs,Summit Primary Care Colorado Springs,2,1
+28,29,"Regents of the University of Colorado, CU Family Health Clinic",Sheridan Health Services,1,2
+29,3466,Summit Primary Care Pueblo,Summit Primary Care Pueblo,2,1
+30,2588,"Dr. Lu Family Medicine, PLLC","Dr. Lu Family Medicine, PLLC",3,2
+31,2590,Family Care Specialists,Family Care Specialists,3,1
+32,117,Salud Family Health Center - Sterling,Sterling Salud Clinic,3,2
+33,2204,UCHealth Lone Tree Primary Care,UCHealth Lone Tree Primary Care,1,1
+38,2097,"Mark W. Hinman, MD, LLC","Mark W. Hinman, MD, LLC",3,1
+40,3505,"Pearl Family Medicine, PC",Pearl Family Medicine,3,2
+41,3255,Valley Medical Clinic,Sedgwick County Health Center,3,2
+43,2645,Community Dental Clinic DBA The PIC Place,The PIC Place,2,1
+44,2638,Southern Colorado Medicine,Southern Colorado Medicine,1,2
+45,2523,Colorado Primary Health Care,Andy M. Fine,1,1
+46,3297,"Geriatric & Family Medicine Associates, PC",Geriatric and Family Medicine,3,2
+47,3506,Pinnacle Pediatrics and Internal Medicine,Pinnacle Pediatrics and Internal Medicine,1,1
+48,51,Rocky Ford Family Health center,Rocky Ford Family Health center,3,1
+49,2562,Delta Health West Elk Hotchkiss Clinic,West Elk Hotchkiss Clinic,2,1
+51,3252,Southeast Colorado Medical Clinic,Southeast Colorado Medical Clinic,1,2
+57,2070,Denver Family Medicine,Denver Family Medicine,2,1
+59,111,"Women's Integrative Services in Health, UCHealth",WISH,3,2
+61,2592,Family Practice of Holyoke,Melissa Memorial Hospital,1,1
+62,76,AF Williams,AF Williams,3,1
+64,35,Highlands Health for Life,Highlands Health for Life,2,2
+65,2596,Peak Vista Community Health Centers - Strasburg,Peak Vista Community Health Centers - Strasburg,1,2
+66,2133,"Northeast Colorado Family Medicine Associates, P.C.","Northeast Colorado Family Medicine Associates, P.C.",3,2
+67,3507,CU Family Medicine Depot Hill,CU Family Medicine Depot Hill,3,2
+68,3473,CHPG West Littleton Primary Care,CHPG West Littleton Primary Care,3,2
+69,196,Sunrise Health Care PC,Sunrise Health Care PC,1,1
+70,180,Mercy Primary Care - Horse Gulch,Mercy Primary Care - Horse Gulch,2,2
+72,11,Family Care Southwest,Family Care Southwest,1,1
+73,3240,Haxtun Family Medicine Center,Haxtun Health,1,1
+74,3418,Sunrise Community Health,Monfort Family Clinic,2,2
+76,2101,Sunrise Community Health,Sunrise Adelante Clinic,2,2
+77,2116,SunriseCommunity Health,Loveland Community Health,2,2
+79,3249,Prowers Medical Center Clinic,Prowers Medical Center Clinic,1,1
+83,2173,Summit Community Care Clinic,Summit Community Care Clinic,3,2
+84,2202,University Family Medicine Boulder,University Family Medicine Boulder,3,2
+85,3106,Aspen Internal Medicine Consultants,Aspen Internal Medicine Consultants,3,2
+89,3123,Grand Valley Primary Care,Grand Valley Primary Care,2,3
+90,183,Mercy Primary Care - Three Springs,Mercy Primary Care - Three Springs,2,2
+91,2607,Mercy Primary Care - Bayfield,Mercy Primary Care - Bayfield,2,2
+94,,UC Health Westminster,UC Health Westminster,1,4
+96,127,Family Physicians of Western Colorado,Family Physicians of Western Colorado,2,6
+97,,Aurora Internal Medicine Clinic,Aurora Internal Medicine Clinic,3,6

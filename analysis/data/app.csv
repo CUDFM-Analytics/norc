@@ -1,0 +1,74 @@
+"","pcmh","payermix_medicare","payermix_medicaid","payermix_dual","payermix_private","payermix_other","payermix_noins_selfpay","payermix_total","fast_pto","fast_application_complete","type___1","type___2","type___3","type___4","type___5","type___6","type___7","type___8","type___9","type___10","type____777","record_id","prac_entity_split_id","clinicname","eligible","intervention_arm","clinicname_preferred","specialty___1","specialty___2","specialty___3","specialty___4","specialty___5","specialty___6","specialty____777","status","dropout_dtd","consort_dropout_code","prac_dropout","kickoff_mtg_dtd","status.fct","consort_dropout_code.fct","prac_dropout.fct"
+"1",1,15,50,0,25,NA,10,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,4,2063,"Colorado Primary Care Clinic",1,NA,"Colorado Primary Care Clinic",0,0,0,0,0,0,1,1,"",NA,NA,"","Never Enrolled",NA,NA
+"2",1,10,70,5,10,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,5,2576,"Castillo Primary Care",1,1,"Castillo Primary Care",1,0,0,0,0,0,0,4,"",NA,NA,"8/25/2021","Complete",NA,NA
+"3",0,48,7,2,38,1,4,100,2661,2,0,0,0,0,0,0,0,0,0,0,1,7,2640,"St. Luke's Medical Clinic",1,0,"St. Luke's Medical Clinic",1,0,0,1,0,0,0,5,"",NA,NA,"6/9/2020","Dropped",NA,NA
+"4",0,10,0,0,89,0,1,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,12,2135,"ChrMeg Inc.",1,0,"Parker Family Care",1,0,0,0,0,0,0,4,"",NA,NA,"6/29/2020","Complete",NA,NA
+"5",0,10,40,5,40,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,16,2580,"Center Pointe Family Medicine",1,1,"Center Pointe Family Medicine - South",1,0,1,0,0,0,0,5,"10/7/2021",5,2,"8/18/2021","Dropped","Withdrew after kick off","Practice unable to support project objectives"
+"6",0,10,40,5,40,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,17,3310,"Center Pointe Family Medical Group",1,1,"Center Pointe Family Medicine Group",1,0,1,0,0,0,0,5,"10/7/2021",5,2,"8/18/2021","Dropped","Withdrew after kick off","Practice unable to support project objectives"
+"7",0,10,55,2,25,NA,8,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,19,2359,"Heartlight Family Clinic",1,1,"Heartlight Family Clinic",0,0,0,0,1,0,1,1,"9/29/2020",4,3,"8/17/2020","Never Enrolled","Completed survey, did not host kick off meeting","Other"
+"8",0,0,0,0,90,0,10,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,20,2070,"Denver Family Medicine",1,0,"Denver Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"6/24/2020","Complete",NA,NA
+"9",1,16,13,6,52,5,8,100,674,2,1,0,0,0,0,0,0,0,0,0,0,22,30,"MidValley Family Practice, PC",1,0,"MidValley Family Practice",1,0,0,0,0,0,0,4,"",NA,NA,"6/18/2020","Complete",NA,NA
+"10",0,11,2,0,74,1,12,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,28,2585,"DTC Family Health, PLLC",1,1,"DTC Family Health",1,0,0,0,0,0,0,5,"7/31/2020",1,2,"","Dropped","No Response","Practice unable to support project objectives"
+"11",0,8,8,2,70,10,2,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,29,2198,"The Family Practice",1,NA,"The Family Practice",1,0,0,0,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"12",0,25,5,0,65,0,5,100,2667,2,1,0,0,0,0,0,0,0,0,0,0,39,2133,"Northeast Colorado Family Medicine Associates, P.C.",1,1,"Northeast Colorado Family Medicine Associates, P.C.",1,0,0,0,0,0,0,4,"",NA,NA,"6/17/2020","Complete",NA,NA
+"13",0,20,1,1,71,0,7,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,41,3106,"Aspen Internal Medicine Consultants",1,1,"Aspen Leaf Internal Medicine",0,1,0,0,0,0,0,4,"",NA,NA,"6/11/2020","Complete",NA,NA
+"14",0,15,30,2,51,0,2,100,2661,2,0,0,0,0,0,0,1,0,0,0,0,42,3349,"Rocky Vista Health Center",1,1,"Rocky Vista Health Center",0,1,0,0,0,0,1,5,"",NA,NA,"9/25/2020","Dropped",NA,NA
+"15",0,30,30,10,25,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,44,2429,"Trey Medical Enterprises",1,0,"Trey Medical Enterprises, Inc",1,0,0,0,0,0,0,4,"",NA,NA,"7/6/2020","Complete",NA,NA
+"16",0,67,0,0,32,NA,1,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,45,2638,"Southern Colorado Medicine",1,1,"Southern Colorado Medicine",0,1,0,0,0,0,0,4,"",NA,NA,"6/22/2020","Complete",NA,NA
+"17",0,60,5,0,33,0,2,100,674,2,0,1,0,0,0,0,0,0,0,0,0,48,2123,"Internal Medicine at Valley View",1,1,"Internal Medicine at Valley View Hospital",0,1,0,0,0,0,0,4,"",NA,NA,"6/25/2020","Complete",NA,NA
+"18",0,10,50,5,5,0,30,100,2661,2,0,0,0,0,0,1,0,0,0,0,1,50,2645,"Community Dental Clinic, Inc.",1,1,"The PIC Place",0,0,0,1,0,0,1,5,"",NA,NA,"","Dropped",NA,NA
+"19",0,2,0,1,94,NA,3,NA,2666,2,1,0,0,0,0,0,0,0,1,0,0,51,2067,"Conifer Medical Center",1,1,"Conifer Medical Center, P.C.",1,0,0,0,0,0,0,4,"",NA,NA,"6/16/2020","Complete",NA,NA
+"20",1,16,9,0,52,2,21,100,674,2,0,1,0,0,0,0,0,0,0,0,0,53,153,"Roaring Fork Family Practice",1,0,"Roaring Fork Family Practice",1,0,0,0,0,0,0,4,"",NA,NA,"6/16/2020","Complete",NA,NA
+"21",0,5,NA,1,91,NA,3,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,57,35,"Highlands Health for Life",1,0,"Highlands Health for Life",1,0,0,0,0,0,0,4,"",NA,NA,"7/8/2020","Complete",NA,NA
+"22",NA,8,40,30,20,0,2,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,60,3351,"Lakewood Medical Center",1,0,"Lakewood Medical Center",0,1,0,0,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"23",0,7.5,7.5,1,83,0,1,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,65,2642,"Dr Lisa Lewis, PC",1,1,"Sustaina Center for Women",0,0,0,0,0,1,0,5,"",NA,NA,"","Dropped",NA,NA
+"24",0,15,30,5,35,5,10,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,66,2143,"Prairie View Family Care, LLC",1,NA,"Prairie View Family Care, LLC",1,0,0,0,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"25",0,15,45,30,5,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,67,3321,"Rocky Mountain Medical & Healthcare",1,0,"Rocky Mountain Medical & Healthcare",1,0,0,1,0,0,0,4,"",NA,NA,"8/28/2020","Complete",NA,NA
+"26",0,25,35,12,20,7,1,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,70,16,"Summit Medical Clinic, PC",1,NA,"Summit Medical Clinic, PC",0,1,0,0,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"27",1,25,25,20,30,0,0,100,674,2,1,0,0,0,0,0,0,0,0,0,0,72,2588,"Dr. Lu Family Medicine",1,1,"Dr. Lu Family Medicine, PLLC",1,0,0,0,0,0,0,4,"",NA,NA,"6/16/2020","Complete",NA,NA
+"28",0,0,14,0,84,NA,2,NA,2657,2,1,0,0,0,0,0,0,0,0,0,0,74,2619,"Pediatrics at Cherry Creek",0,NA,"Pediatrics at Cherry Creek",0,0,1,0,0,0,0,NA,"",NA,NA,"",NA,NA,NA
+"29",NA,NA,NA,NA,NA,NA,NA,NA,NA,0,0,1,0,0,0,0,0,0,0,0,0,75,3352,"DCMH Delta Family Medicine",1,NA,"DCMH Delta Family Medicine",1,0,0,1,0,1,0,5,"2/24/2021",1,4,"","Dropped","No Response","Application Incomplete"
+"30",NA,20,20,30,5,20,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,1,76,3355,"Visiting Medical Clinic",1,1,"Visiting Medical Clinic",1,0,0,1,0,0,1,4,"",NA,NA,"6/16/2020","Complete",NA,NA
+"31",0,15,65,5,10,0,5,100,674,2,1,0,0,0,0,0,0,0,0,0,0,79,2254,"Road to Recovery",1,NA,"Mountain Medical Road to Recovery",0,0,0,0,0,0,1,1,"",NA,NA,"","Never Enrolled",NA,NA
+"32",0,10,60,15,10,0,5,100,2661,2,0,0,0,0,0,0,0,0,0,0,0,80,2629,"Road to Recovery",1,NA,"Mountain Medical Road to Recovery",0,0,0,0,0,0,1,5,"6/30/2020",NA,4,"","Dropped",NA,"Application Incomplete"
+"33",0,NA,NA,NA,NA,NA,NA,NA,NA,0,1,0,0,0,0,0,0,0,0,0,0,82,3359,"Colorado OB/GYN Partners, PLLC",1,NA,"The Women's Health Group",0,0,0,1,0,1,0,5,"8/17/2021",1,4,"","Dropped","No Response","Application Incomplete"
+"34",1,17.89,5.37,1.86,69.21,5.08,0.59,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,103,2571,"Associates in Family Medicine",1,NA,"AFM",1,0,0,1,0,1,0,5,"6/14/2021",1,3,"","Dropped","No Response","Other"
+"35",1,27.01,4.01,0,68.98,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,105,2599,"Internal Medicine Associates Buffalo Ridge",1,0,"Internal Medicine Associates Buffalo Ridge",0,1,0,0,0,0,0,4,"",NA,NA,"7/23/2020","Complete",NA,NA
+"36",1,22.98,7.06,0,69.96,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,106,148,"Spruce Street Internal Medicine",1,1,"Spruce Street Internal Medicine",0,1,0,0,0,0,0,4,"",NA,NA,"7/16/2020","Complete",NA,NA
+"37",1,32.1,3.72,0,64.18,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,107,2601,"Internal Medicine Associates Lafayette",1,1,"Internal Medicine Associates Lafayette",0,1,0,0,0,0,0,4,"",NA,NA,"8/27/2020","Complete",NA,NA
+"38",1,30.68,5.44,0,63.88,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,108,2600,"Internal Medicine Associates Boulder",1,0,"Internal Medicine Associates Boulder",0,1,0,0,0,0,0,4,"",NA,NA,"7/23/2020","Complete",NA,NA
+"39",1,33.52,4.23,0,63.25,0,0,101,2666,2,0,1,0,0,0,0,0,0,0,0,0,109,2595,"Frontier Internal Medicine",1,1,"Frontier Internal Medicine",0,1,0,0,0,0,0,4,"",NA,NA,"7/22/2020","Complete",NA,NA
+"40",0,12.36,8.82,0,78.82,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,110,3377,"Erie Family Medicine",1,0,"Erie Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"7/23/2020","Complete",NA,NA
+"41",1,12.86,11.66,0,75.48,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,111,122,"Boulder Creek Family Medicine",1,1,"Boulder Creek Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"7/21/2020","Complete",NA,NA
+"42",1,17.3,13.75,0,68.95,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,112,2586,"Dakota Ridge Family Medicine",1,1,"Dakota Ridge Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"7/17/2020","Complete",NA,NA
+"43",1,14.2,9.25,0,77,0,0,100.45,2666,2,0,1,0,0,0,0,0,0,0,0,0,113,143,"Gunbarrel Family Medicine",1,1,"Gunbarrel Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"7/24/2020","Complete",NA,NA
+"44",1,16.48,12.61,0,70,0,0,99.09,2666,2,0,1,0,0,0,0,0,0,0,0,0,114,141,"Family medical Associates",1,0,"Family medical Associates",1,0,0,0,0,0,0,4,"",NA,NA,"7/16/2020","Complete",NA,NA
+"45",1,9.29,10.36,0,80.35,0,0,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,115,140,"Northwest Family Medicine",1,0,"Northwest Family Medicine",1,0,0,0,0,0,0,4,"",NA,NA,"7/13/2020","Complete",NA,NA
+"46",0,30,40,NA,30,NA,NA,NA,2661,2,0,1,0,0,0,0,0,0,0,0,0,116,95,"Porter Primary Care",1,1,"Porter Primary Care - Harvard Park",0,0,0,1,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"47",0,30,40,NA,30,NA,NA,NA,2661,2,0,1,0,0,0,0,0,0,0,0,0,117,3378,"Highlands Primary Care",1,0,"Highlands Primary Care",1,0,0,0,0,0,0,1,"",NA,NA,"","Never Enrolled",NA,NA
+"48",1,30,30,20,10,NA,10,NA,674,2,0,0,0,1,0,0,0,0,0,0,0,130,100,"MarillacHealth",1,0,"Marillac Clinic Grand Junction",1,1,1,1,0,1,0,5,"6/1/2021",5,2,"8/21/2020","Dropped","Withdrew after kick off","Practice unable to support project objectives"
+"49",1,17.89,5.37,1.86,69.21,5.08,0.59,100,2666,2,1,0,0,0,0,0,0,0,0,0,0,131,15,"Associates in Family Medicine PC",1,1,"Associates in Family Medicine - Horsetooth",1,0,0,0,0,0,0,5,"3/2/2021",2,2,"","Dropped","Decided not to sign practice agreement","Practice unable to support project objectives"
+"50",0,10,35,10,40,NA,5,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,132,2352,"Happy Daisy Ltd",0,NA,"Happy Daisy Ltd",0,0,0,0,0,0,1,NA,"",NA,NA,"",NA,NA,NA
+"51",0,15,65,5,10,0,5,100,674,2,1,0,0,0,0,0,0,0,0,0,0,133,3403,"Integrated Psychiatric Services",0,NA,"IPS",0,0,0,0,0,0,1,NA,"",NA,NA,"",NA,NA,NA
+"52",0,25,50,10,14,NA,1,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,134,3397,"Adult Medicine Specialists",1,0,"Adult Medicine Specialists",0,1,0,0,0,0,0,4,"",NA,NA,"2/16/2021","Complete",NA,NA
+"53",1,30,30,20,10,NA,10,NA,674,2,0,0,0,1,0,0,0,0,0,0,0,135,2117,"Marillac Health",1,0,"Marillac- County",1,1,1,1,0,1,0,5,"6/1/2021",5,2,"8/21/2020","Dropped","Withdrew after kick off","Practice unable to support project objectives"
+"54",1,1,55,33,10,0,1,100,2667,2,0,0,0,0,0,0,0,0,1,0,0,136,3256,"Walsh Medical Clinic",1,1,"Walsh Medical Clinic",1,0,0,0,0,0,0,4,"",NA,NA,"8/26/2020","Complete",NA,NA
+"55",0,0.5,84,0,0.6,0.2,14.7,100,674,2,0,1,0,0,0,0,0,0,0,0,0,138,2164,"SET Family Medical Clinics",1,1,"SET Family Medical Clinics",1,0,0,0,0,0,0,4,"",NA,NA,"2/18/2021","Complete",NA,NA
+"56",1,30,35,8,25,1,1,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,139,2590,"Family Care Specialists, PC",1,0,"Family Care Specialists - Pueblo, CO",1,0,0,0,0,0,0,4,"",NA,NA,"9/23/2020","Complete",NA,NA
+"57",0,44,20,0,33,0,3,100,2667,2,0,0,0,0,0,0,0,0,1,0,0,142,3255,"Valley Medical Clinic",1,1,"Sedgwick County Health Center",1,0,0,0,0,0,0,4,"",NA,NA,"3/29/2021","Complete",NA,NA
+"58",1,20.72,30.36,0,21.74,0.38,26.8,100,674,2,0,0,0,1,0,0,0,0,0,0,0,143,3247,"Northwest Colorado Visiting Nurse Association",1,1,"Northwest Colorado Health - Steamboat",1,0,0,0,0,0,0,4,"",NA,NA,"3/11/2021","Complete",NA,NA
+"59",1,21,30,0,21,1,27,100,674,2,0,0,0,1,0,0,0,0,0,0,0,144,2134,"Northwest Colorado Visiting Nurse Association",1,1,"Northwest Colorado Health - Craig",1,0,0,0,0,0,0,4,"",NA,NA,"3/11/2021","Complete",NA,NA
+"60",0,20,20,30,20,0,10,100,2667,2,0,1,0,0,0,0,0,0,1,0,0,145,2569,"Akron Clinic",1,0,"Akron Clinic",1,0,0,0,0,0,0,4,"",NA,NA,"4/29/2021","Complete",NA,NA
+"61",0,25,25,10,39,0,1,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,146,2415,"Ted J Puls MD PC",1,0,"Puls and Mann",1,0,0,0,0,0,0,4,"",NA,NA,"3/18/2021","Complete",NA,NA
+"62",1,30,30,20,15,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,149,3430,"Colorado Adult primary care",1,1,"Colorado Adult primary care",1,0,0,0,0,0,0,4,"",NA,NA,"3/26/2021","Complete",NA,NA
+"63",0,25,25,0,40,5,5,100,2666,2,0,1,0,0,0,0,0,0,0,0,0,166,2226,"St Anthony Health Centers Evergreen",1,0,"St. Anthony Health Center Evergreen",1,0,0,0,0,0,0,5,"",NA,NA,"2/28/2022","Dropped",NA,NA
+"64",0,10,40,5,40,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,178,3319,"Center Pointe Family Medicine",1,1,"Center Pointe Family Medicine - North",1,0,0,0,0,0,0,1,"9/3/2021",2,3,"8/18/2021","Never Enrolled","Decided not to sign practice agreement","Other"
+"65",0,33,1,0,35,30,1,100,2657,2,0,1,0,0,0,0,0,0,0,0,0,191,3487,"South Suburban Internal Medicine",1,1,"South Suburban Internal Medicine",0,1,0,0,0,0,0,4,"",NA,NA,"12/7/2021","Complete",NA,NA
+"66",0,15,10,22,50,2,1,100,2657,2,0,1,0,0,0,0,0,0,0,0,0,192,3488,"Highlands Ranch Medical Associates",1,0,"Highlands Ranch Medical Associates",1,0,0,0,0,0,0,4,"",NA,NA,"12/1/2021","Complete",NA,NA
+"67",0,10,30,10,45,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,194,3490,"MedNOW Clinics-Aurora",1,0,"",1,0,0,0,0,0,0,4,"",NA,NA,"1/18/2022","Complete",NA,NA
+"68",0,10,30,10,40,0,10,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,195,2120,"MedNOW Clinics-Denver",1,1,"",1,0,0,0,0,0,0,4,"",NA,NA,"1/18/2021","Complete",NA,NA
+"69",0,5,50,15,25,0,5,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,196,3492,"MedNOW Clinics-Englewood",1,0,"",1,0,0,0,0,0,0,4,"",NA,NA,"1/18/2022","Complete",NA,NA
+"70",0,15,25,5,40,NA,5,NA,2661,2,1,0,0,0,0,0,0,0,0,0,0,197,3493,"MedNOW Clinics- Lakewood",1,1,"",1,0,0,0,0,0,0,4,"",NA,NA,"1/18/2022","Complete",NA,NA
+"71",0,30,10,5,40,0,15,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,198,2224,"MedNOW Clinics-Denver South",1,0,"",0,1,0,0,0,0,0,4,"",NA,NA,"1/18/2022","Complete",NA,NA
+"72",0,20,20,20,30,0,10,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,199,3498,"MDVIP365",1,1,"Priority Medical Group",1,0,0,1,0,0,0,5,"",NA,NA,"","Dropped",NA,NA
+"73",0,20,10,10,50,0,10,100,2661,2,1,0,0,0,0,0,0,0,0,0,0,200,3499,"Arizona Medical Center",1,1,"",1,0,0,0,0,0,0,5,"",NA,NA,"","Dropped",NA,NA

@@ -1,3 +1,4 @@
+
 /*
 PROGRAM:   
 PURPOSE:        NORC upload
@@ -9,32 +10,34 @@ NOTES:          - if task_id in (193, 201) and Finished = 1 / Keep_or_delete = k
                 - template requires 55 columns;
 -----------------------------------------------------------------------------------------------------*/
 * ==== GLOBAL PATHS/ ALIASES  ===============================================================;
-%INCLUDE "V:/Data_Management_Team/norc/code/00_config_20230320.sas"; 
-%INCLUDE "&import./sbirt.sas";
+/*Uncomment if needed to run again from here*/
+
+* CONFIG FILE: 
+/*%INCLUDE "\\data.ucdenver.pvt\dept\SOM\FM\FM\Data_Management_Team\norc\code\00_config_20230320.sas"; */
+
+* MACRO for checking ID's against the inclusion list: ; 
+/*%INCLUDE "&NORC./code/macros/check_ids.sas"; */
 
 * ==== IMPORT  ===============================================================================;
 * Imported via wizard - idk it isn't working to get 999's on the char fields; 
-data sbirt1;
-set  sbirt0;
-where recordeddate ne '' 
-AND   task_id in ('193', '201')
-AND   keep_or_delete = "KEEP";
+data sbirt1 (drop=sim_id);
+set  sbirt;
+PRACTICE_ID = input(sim_id, 8.); 
+/*where recordeddate ne '' */
+/*AND   task_id in ('193', '201')*/
+WHERE   sim_id ne ' '
+AND     keep_or_delete = "KEEP";
 GRANTEE = 'CO';
-run; *[94, 77]
+run; *[99, 110]
  *  aug[88, 110 - dropped 6 entries from keep/delete];
 
-proc freq data = sbirt1;
-tables task_id sim_id;
-run; * feb = 93
-finished jan = 90 
-AUG n=88 all value of 1 / task_id 193 n=51, 201 n=37;
-*sim_id all 1 or 2;
+PROC SORT DATA = sbirt1 ; by practice_id ; RUN ;
 
 proc sql; 
 create table sbirt2 as 
 select GRANTEE
         , task_id
-        , sim_id         as PRACTICE_ID
+        , PRACTICE_ID
         , AUD_pts_screen as SCREENING_PROCESS
         , screentools_1  as TOOL_SASQ
         , screentools_2  as TOOL_AUDIT3
@@ -89,8 +92,15 @@ select GRANTEE
         , support_8 as SUPPORT_MAT
         , support__66_TEXT as SUPPORT_OTHER
 from sbirt1
-WHERE sim_id IN (SELECT txt_prac_entity_split_id FROM out.inclusion);
-quit; *mar 77 with where clause // feb 94, 56 // jan 88, 56 - will drop task_id later  ; 
+WHERE practice_id IN (SELECT prac_entity_split_id FROM out.inclusion);
+quit; *apr 93  // feb 94, 56 // jan 88, 56 - will drop task_id later  ; 
+
+proc freq data = sbirt2 ;
+tables practice_id*task_id /norow nopercent nocol;
+run; * feb = 93
+finished jan = 90 
+AUG n=88 all value of 1 / task_id 193 n=51, 201 n=37;
+*sim_id all 1 or 2;
 
 * Get order of variables for upload; 
 
@@ -110,21 +120,25 @@ into :order separated by ' '
 from out.template_sbirt;
 quit;
 
+* remove all labels so you can export using labels for the longer column names only ; 
+proc datasets lib = work;
+modify sbirt2;
+attrib _all_ label = ''; 
+RUN ; 
+
 * re-order most recent iteration of work.sbirtX to match macro using retain;
 data sbirt3;
 retain &order.;
 set  sbirt2;
+LABEL DOCUMENTATIONTOOL_EHRUNS = "DOCUMENTATIONTOOL_EHRUNSTRUCTURED"
+      DOCUMENTATIONTOOL_EHRST  = "DOCUMENTATIONTOOL_EHRSTANDARDIZED"
+      POSITIVE_INDIV           = "POSITIVE_INDIVIDUAL_PROCESS_GENERAL";
 run; *93, 56;
-
-proc freq data = sbirt3;
-tables _all_*task_id;
-run;
-
 
 * ==== SET to 999 where req'd (norc_templates_comments_extracted_20220824) ===================;
 data sbirt4 (DROP=i);
 set  sbirt3;
-    array rcchr(39) 
+    array rcchr(38) 
              TOOL_SASQ
              TOOL_AUDIT3
              TOOL_AUDIT10
@@ -162,63 +176,62 @@ set  sbirt3;
              SUPPORT_REFERPEER
              SUPPORT_TREATMENT
              SUPPORT_RX
-             SCREENED_FREQUENCY  
              SUPPORT_MAT
 ;
-    do i=1 to 39; 
+    do i=1 to 38; 
 if rcchr[i] = ' ' then rcchr[i] = "999";
     end;
 RUN;  *;
 
-data sbirt5 (DROP=i);
-set  sbirt4;
-    array rcnum(5) 
+**** SAVES TO OUT. ***********; 
+
+data out.sbirt (DROP=i);
+set  sbirt4    ;
+    array rcnum(6) 
+                  SCREENED_FREQUENCY  
                   SCREENING_PROCESS  
                   SCREENING_REVIEW_PROCESS_GENERAL              
                   SCREENING_RESULTS_FEEDBACK
                   POSITIVE_INDIV
                   PRACTICE_SUPPORT;
-    do i=1 to 5; 
+    do i=1 to 6; 
 if rcnum[i] = . then rcnum[i] = 999;
     end;
 RUN;  *;
 
+proc contents data = out.sbirt_all_tasks varnum; 
+RUN ; 
+
+
+*** STOPPED HERE TO GET TASK_ID"S all ; 
+* Check against inclusion file: ;
+%check_ids(out=id_sbirt, b=out.sbirt); 
+proc print data = id_sbirt; run ; 
+
 * Split file by task_id and drop column, save to library 'norc';
 data out.sbirt_baseline (drop=task_id) out.sbirt_post (drop=task_id);
-set sbirt5;
+set out.sbirt;
 if task_id = 193 then output out.sbirt_baseline; 
 if task_id = 201 then output out.sbirt_post;  
-run; *51,55 / 42, 56;
+run; *APR= 50, 43 / 51,55 / 42, 56;
+
+*** When exporting - export using labels so you can get the longer variable names ; 
+ods excel file = "&out./sbirt.xlsx";
+options(sheet_name = "sbirt");
+proc print data = out.sbirt_all_tasks label ; 
+RUN ; 
+ods excel close ; 
+
 
 * Export files;
-proc export data = out.sbirt_baseline
-  outfile = "&out/sbirt_baseline"
-  dbms=xlsx replace;
-run; *42: 55 ; 
+ods excel file = "&out./sbirt_baseline.xlsx";
+proc print data = out.sbirt_baseline noobs label ; 
+RUN ; 
 
-proc export data = out.sbirt_post
-  outfile = "&out/sbirt_post"
-  dbms=xlsx replace;
-run; *35 : 55 ; 
+ods excel file = "&out./sbirt_post.xlsx";
+PROC PRINT DATA = out.sbirt_post noobs label;
+RUN ; 
 
-* delete BAK files created by PROC EXPORT;
-filename bak  "&out/sbirt_post.xlsx.bak";
-filename bak2 "&out/sbirt_baseline.xlsx.bak"; 
-
-data _null_;
- rc = fdelete("bak");
- rc = fdelete("bak2");
-run;
-
-filename bak clear; 
-filename bak2 clear;
+ods excel close ; 
 
 
-* ==== EXPORT CONTENTS, FREQUENCIES, MEANS ===================================================;
-
-* Get list of variable names for contents, means, frequency export; 
-%put List of Variables=%mf_getvarlist(out.sbirt_baseline);
-
-* Run macro for univariate data (globals);
-%summary(ds=out.sbirt_baseline, out=out.summary_sbirt_bl);
-%summary(ds=out.sbirt_post,     out=out.summary_sbirt_post);

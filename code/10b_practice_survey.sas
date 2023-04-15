@@ -4,21 +4,30 @@ PURPOSE:     NORC upload: Survey
 PROGRAMMER:  K Wiggins
 LAST RAN     02/16/2023
 PROCESS:     Danika exports REDCap, Qualtrics to S:drive>data_team as <file>_raw_;
-NOTES:       - Use split_id_verify 
+NOTES:       - Use split_id_verify (NOT prac_entity_split_id) 
              - Use dupdelete remove 1's : No longer in file, but was in Aug... 
              Checks:
-                 - no keep / etc columns - all look complete - so kept all.
+                 - Note: Keep and Finished are the same. Can use one or the other
                  - 2022/08/20: Sent duplicate practice_id's to Sabrina Lor - practice_id 35, 141 this time 
              Expect: 
                  Final result for upload should have 74 columns and be in order acc to &template_fields;
-        
+
+             Per Jen Halfacre, 3310, 3319, 2580 went from 3 sites to 2
+                 - Should have practice ID's 2580 & 3310 (remove 3319)
+
+             Per Jen Halfacre, practice Survey 3255 and 2569 Akron might have gotten their links mixed up and gotten mixed. 
 -----------------------------------------------------------------------------------------------------*/
 
 * ==== GLOBAL PATHS/ ALIASES  ===============================================================;
+
+* Macro for checking ID's against the inclusion list: ; 
+%INCLUDE "&NORC./code/macros/check_ids.sas"; 
+
 * Import file ; 
 %INCLUDE "&import./prac_survey_raw.sas"; 
+
 * alias ; 
-%LET surv0 = work.survey0	; 
+%LET surv0 = work.survey0   ; 
 
 * ==== IMPORTED in 00_import_runfile ========================================================;
 * march 21 =  // feb15 = 51, 70 // jan23 = 51, 70 // aug = 49,69;; 
@@ -37,7 +46,7 @@ RUN;
 * confirm only one each ; 
 PROC FREQ DATA = &surv0;
 TABLES split_id_verify; 
-RUN;  * 52 perfect -- and no duplicates!;
+RUN;  * 04-04 // 52;
 
 *AUG 2022: 
 Per email thread with Sabrina re: multiple ID's, documented in doc file:;
@@ -94,11 +103,29 @@ select split_id_verify      as PRACTICE_ID
     , gender_none           as GENDER_IDENTITY_UNKNOWN
     , demog_data            as DATA_SOURCE
 from &surv0;
-quit; *;
+quit; * 52, 43;
+
+proc sql; 
+create table survey1a as
+select coalesce(a.practice_id, b.practice_id) as practice_id2
+    , a.*
+    , b.*
+from survey1 as a
+full join out.app as b
+on a.practice_id = b.practice_id;
+quit; * 54, 64; 
+
+PROC SQL; 
+CREATE TABLE survey1b as
+SELECT *
+FROM  survey1a (drop=practice_id)
+WHERE practice_id2 IN (SELECT prac_entity_split_id FROM out.inclusion) ; 
+QUIT;
+
 
 * Create calculated variables for 'x_collected';
-data survey2;
-set  survey1;
+data survey2 (rename=(practice_id2 = practice_id));
+set  survey1b;
 
 if hispanic_latinx_unknown = 100 then ETHNICITY_COLLECTED = 0;
     else ETHNICITY_COLLECTED = 1;
@@ -112,7 +139,7 @@ if PERCENTAGE_UNKNOWN = 100 then RACE_COLLECTED = 0;
 Grantee = 'CO';
 
 RUN; 
-*49, 47;
+*04-04 50, 64;
 
 * Recode inpatient care, then drop
     > original: 1) Yes, 0) No clinicians visit patients in hosp, -1) No Hospital-based staff provides 
@@ -159,16 +186,56 @@ RUN; *49, 47;
 /*                            dbms=xlsx replace;*/
 /*                        run;*/
 
-%LET surv_a = out.survey_20230320 ; 
-*save to library;
-data &surv_a;
+
+
+* ==== SET to 999 where req'd (norc_templates_comments_extracted_20220824) ===================;
+data survey3 (drop = i) ;
 set  survey4;
-run; *44, 47;
+    array missing {18}  SURVEY_CONSULT_CLINICIAN
+                        SURVEY_CONSULT_BH
+                        SURVEY_CONSULT_OTHER_CLINICAL
+                        SURVEY_CONSULT_OFFICE_MANAGER
+                        SURVEY_CONSULT_OFFICE_STAFF
+                        SURVEY_CONSULT_PEER_PROVIDER
+                        SURVEY_CONSULT_PHARMACIST
+                        PRACTICE_OWNERSHIP_SOLO_GROUP
+                        PRACTICE_OWNERSHIP_HOSPITAL
+                        PRACTICE_OWNERSHIP_HMO
+                        PRACTICE_OWNERSHIP_FQHC
+                        PRACTICE_OWNERSHIP_NONFED_GVMT
+                        PRACTICE_OWNERSHIP_ACADEMIC
+                        PRACTICE_OWNERSHIP_FEDERAL
+                        PRACTICE_OWNERSHIP_RURAL
+                        PRACTICE_OWNERSHIP_IHS
+                        INPATIENT_ADMISSIONS
+                        PCMH;
+    do i=1 to 18 ; 
+    if missing[i] = . then missing[i] = 999;
+    end;
+Grantee = "Colorado";
+RUN;  *feb [50,64];
 
-* use date from last dataset, not date ran; 
-proc sort data = &surv_a; by practice_id; run;
+* ==== MATCH TEMPLATE COLUMNS ===============================================================;
+* find template fields need to keep / order; 
+proc sql;
+select A
+into :order separated by ' '
+from out.survey_field_order;
+quit;
 
-proc freq data = &surv_a;
+data out.survey_baseline;
+retain &order.;
+set  out.survey_baseline;
 run;
 
-* Don't need to export: wait until merged with PracticeApp;
+* COMPARE TO INCLUSION LIST; 
+%check_ids(out=id_survey, b=out.survey_baseline); 
+
+
+* ==== EXPORT FILES TO UPLOAD ===============================================================;
+proc export data = out.survey_baseline
+    outfile = "&out./survey_baseline.xlsx"
+    dbms=xlsx replace;
+run;
+
+

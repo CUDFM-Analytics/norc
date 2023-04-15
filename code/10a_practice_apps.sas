@@ -7,9 +7,9 @@ PROCESS:        Export from redcap report
 --------------------------------------------------------------------------------------------
 NOTES FEB re: split ID's, response from Danika regarding questions:: 
 
-0    •	Guardian Angels Health Center (no splitID) : not FAST, only ISP. Split ID is 2083
+0    •  Guardian Angels Health Center (no splitID) : not FAST, only ISP. Split ID is 2083
 
-1    •	Center Pointe Family Medicine— 
+1    •  Center Pointe Family Medicine— 
         has two record IDs because they enrolled in ISP in 2020 and then enrolled in FAST in 2021. 
         It’s the same practice and practice ID in SPLIT (3319), but if you’re looking at the payer data 
         that doesn’t match up across the records, then I would only look at Record 178 
@@ -17,7 +17,7 @@ NOTES FEB re: split ID's, response from Danika regarding questions::
 
 TO SELECT : select the row where fast_pto = 2661 & practice_id = 3319/ code ROW 350
 
-0    •	High Plains Adult Health Center— not enrolled in FAST, only ISP; they have two records because they completed an application for ISP twice. It’s the same practice with the same practice ID in SPLIT (2087) but one of the names listed is their “official practice name” and one is their “preferred practice name.”*/
+0    •  High Plains Adult Health Center— not enrolled in FAST, only ISP; they have two records because they completed an application for ISP twice. It’s the same practice with the same practice ID in SPLIT (2087) but one of the names listed is their “official practice name” and one is their “preferred practice name.”*/
 
 * ==== IMPORT ===============================================================================;
 proc import 
@@ -43,13 +43,17 @@ RUN;
     RUN; 
 
     * 03/21 none 
-	  02/16 > Two records had > 1 split id: 2087, 3319 > emailed Danika with copy of .csv 
+      02/16 > Two records had > 1 split id: 2087, 3319 > emailed Danika with copy of .csv 
       02/16 > new practice without split id : clinic name 'Guardian Angels Health Center` ;
+PROC SORT DATA = app0 ; by prac_entity_split_id ; RUN ; 
+PROC PRINT DATA = app0 ; 
+VAR prac_entity_split_id ; 
+RUN ; 
 
 * ==== SELECT COMPLETE RECORDS, RENAME ========================================================;
 
 proc sql; 
-create table app2 as
+create table app1 as
 select PRAC_ENTITY_SPLIT_ID AS PRACTICE_ID
      , PAYERMIX_MEDICARE as PAYER_PERCENTAGE_MEDICARE
      , PAYERMIX_MEDICAID as PAYER_PERCENTAGE_MEDICAID
@@ -69,19 +73,14 @@ select PRAC_ENTITY_SPLIT_ID AS PRACTICE_ID
      , type____777 as PRACTICE_OWNERSHIP_OTHER
      , FAST_APPLICATION_COMPLETE
      , PCMH
-from app1 
-where fast_application_complete = 2 
-AND   prac_entity_split_id IN (SELECT prac_entity_split_id FROM work.meta);
+from app0 
+WHERE  prac_entity_split_id IN (SELECT prac_entity_split_id FROM out.inclusion);
 quit; *52 ; 
 
-    proc sort data = app2 ; by practice_id ; run; 
-    proc print data = app2 ; run;
+    proc sort data = app1 ; by practice_id ; run; 
+    proc print data = app1 ; run;
 
-*drop vars;
-data app3 (drop=fast_application_complete);
-set  app2;
-run;
 
 data out.app;
-set  app3;
-run; *march [52, 18] -- jan[51, 18]--  aug[44, 17];
+set  app1 (drop=fast_application_complete);
+run; *04/03 [50, 18] -- ;
